@@ -1,0 +1,43 @@
+.container{
+  padding: 30rpx 28rpx 50rpx;
+}
+view{
+  float: left;
+  text-align: center;
+  color: #333333;
+}
+.t-head,.t-body{
+  border-bottom:2rpx solid  #DDDDDD;
+}
+.t-head {
+  padding-bottom:12rpx; 
+}
+.t-head view{
+  line-height:60rpx;
+  height: 60rpx;
+  font-size: 28rpx;
+  font-weight:bold;
+  vertical-align: top;
+}
+.t1{
+  width: 164rpx;
+}
+.t2,.t3{
+  width: 168rpx;
+}
+.t4{
+  width: 194rpx;
+}
+.t-body{
+  height: 80rpx;
+  line-height: 80rpx
+}
+.t-body view{
+  font-size: 24rpx;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.orange{
+  color: #FF7150;
+}

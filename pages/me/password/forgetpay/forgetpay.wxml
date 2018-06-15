@@ -1,0 +1,19 @@
+<view class='container'>
+    <view class='list have-code'>
+        <view class='title'>短信验证码</view>
+        <input></input>
+        <button hover-class="none">获取</button>
+    </view>
+    <view class='list have-p'>
+        <view class='title'>新的支付密码</view>
+        <input></input>
+        <view class='prompt'>
+          支付密码不少于6个字符
+        </view>
+    </view>
+    <view class='list'>
+        <view class='title'>重复支付密码</view>
+        <input></input>
+    </view>
+    <button class='btn' hover-class="none">确认</button>
+</view>

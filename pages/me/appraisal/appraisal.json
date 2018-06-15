@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "估价记录",
+  "usingComponents":{
+    "me-list": "../../../components/melist/melist"
+  }
+}

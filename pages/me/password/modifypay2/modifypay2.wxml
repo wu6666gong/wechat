@@ -1,0 +1,14 @@
+<view class='container'>
+    <view class='list have-p'>
+        <view class='title'>现有支付密码</view>
+        <input></input>
+        <view class='prompt'>
+          支付密码不少于6个字符
+        </view>
+    </view>
+     <view class='list'>
+        <view class='title'>重复新支付密码</view>
+        <input></input>
+    </view>
+    <button class='btn' hover-class="none">确认</button>
+</view>

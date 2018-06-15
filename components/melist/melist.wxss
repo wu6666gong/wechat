@@ -1,0 +1,78 @@
+.ul{
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 24rpx;
+}
+.li{
+  padding: 40rpx 0 36rpx 0;
+  border-bottom:2rpx solid  #EEEEEE;
+  height: 180rpx;
+  position: relative;
+}
+.li image{
+  width: 180rpx;
+  height: 180rpx;
+  border-radius:14rpx;
+  position: absolute;
+  left: 0;
+  top:40rpx; 
+}
+.list-con{
+  float: left;
+  width: 100%;
+  padding-left:200rpx;
+  box-sizing: border-box; 
+}
+.list-top{
+  height: 40rpx;
+  line-height: 40rpx;
+  color: #333333;
+  font-size: 28rpx;
+  margin-bottom: 8rpx;
+}
+.name{
+  font-weight: bold;
+}
+.time{
+  float: right;
+  color: #666666;
+  font-size: 24rpx;
+}
+.appraisal-detail{
+  float: right;
+}
+.list-middle{
+  height: 40rpx;
+  line-height: 40rpx;
+  font-size: 28rpx;
+  color: #666666;
+  margin-bottom: 40rpx;
+}
+.list-buttom{
+  font-size: 14px;
+  color: #333333;
+  height: 40rpx;
+  line-height: 40rpx;
+}
+.appraisal{
+  font-size: 28rpx;
+  color: #33A695;
+  float: right;
+}
+.app-time{
+  font-size: 24rpx;
+  color: #666666;
+}
+.reward{
+  font-size: 26rpx;
+  float: right;
+}
+.color-black9{
+  color: #999;
+}
+.color-orange{
+  color: #FF7150;
+}
+.color-blue{
+  color: #7AA8AB;
+}

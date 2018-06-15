@@ -1,0 +1,6 @@
+<!--index.wxml-->
+<view class="container">
+      <list-content inner-text="练习"></list-content>    
+</view>
+
+

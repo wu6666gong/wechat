@@ -1,0 +1,22 @@
+<view class="apprasial-result">
+   <!-- <view class="fail">
+      共 18 人参与估价
+      <view class='fail-text'>估价失败</view>
+   </view> -->
+   <!-- <view class="your-result">
+        <view class="join-num">
+          结果：<text class="res-money">2781.48</text> 元 / 18 人参与
+        </view>
+        <view class="your-app">
+          估价：<text class="your-app-money">2781.48</text> 元 * <text>20</text> 艺术豆
+        </view>
+        <view class="your-reward">
+          奖励：<text class="reward-bean">32.46</text> 艺术豆
+        </view>
+        <navigator>估价详情</navigator>
+   </view>  -->
+   <view class='result'>
+      结果：<text>2781.48</text> 元 / 18 人参与
+      <navigator url='../appdetail/appdetail'>估价详情</navigator>
+   </view>
+</view>

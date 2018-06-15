@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "我的艺术品",
+  "usingComponents":{
+    "me-list":"../../../components/melist/melist"
+  }
+}

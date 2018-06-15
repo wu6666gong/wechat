@@ -1,0 +1,52 @@
+.container{
+  width: 100%;
+  box-sizing: border-box;
+  padding:60rpx 84rpx;
+}
+.list{
+  padding-bottom: 64rpx;
+  position: relative;
+}
+.title{
+  font-size: 28rpx;
+  color: #666666;
+  line-height: 40rpx;
+  margin-bottom: 20rpx;
+}
+input{
+  height: 40rpx;
+  font-size: 30rpx;
+  line-height: 40rpx;
+  border-bottom:2rpx solid #999999;
+}
+.have-p{
+  padding-bottom:52rpx; 
+}
+.prompt{
+  font-size: 24rpx;
+  color: #999999;
+  line-height: 34rpx;
+  margin-top:12rpx; 
+}
+.have-code input{
+  margin-right:  212rpx;
+}
+button{
+  color:  #FFFFFF;
+  background-color: #7AA8AB;
+  line-height: 68rpx;
+  border: none;
+}
+.have-code button{
+  font-size: 28rpx;
+  position: absolute;
+  right: 0;
+  bottom: 68rpx;
+  width: 168rpx;
+  height: 68rpx;
+}
+.btn{
+  height: 90rpx;
+  line-height: 90rpx;
+  font-size: 36rpx;
+}

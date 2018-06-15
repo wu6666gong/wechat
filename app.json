@@ -1,0 +1,40 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/me/index/me",
+    "pages/login/login",
+    "pages/me/password/modifypay2/modifypay2",
+    "pages/me/password/modifypay1/modifypay1",
+    "pages/me/security/security",
+    "pages/me/password/forgetpay/forgetpay",
+    "pages/me/password/setpay/setpay",
+    "pages/me/bean/bean",
+    "pages/me/appraisal/appraisal",
+    "pages/me/art/art",
+    "pages/appdetail/appdetail"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#33A695",
+    "navigationBarTitleText": "Artval",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "resources/images/home.png",
+        "selectedIconPath": "resources/images/home-active.png"
+      },
+      {
+        "pagePath": "pages/me/index/me",
+        "text": "我的",
+        "iconPath": "resources/images/me.png",
+        "selectedIconPath": "resources/images/me-active.png"
+      }
+    ],
+    "selectedColor": "#33A695"
+  },
+  "degbug": true
+}

@@ -1,0 +1,9 @@
+{
+  "usingComponents":{
+    "list-content":"../../components/appraisal/content/content"
+  },
+  "enablePullDownRefresh":true,
+  "backgroundTextStyle":"dark",
+  "backgroundColor":"#333",
+  "enablePullDownRefresh":true
+}

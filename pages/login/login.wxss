@@ -1,0 +1,13 @@
+.container{
+  text-align: center;
+  margin-top: 200rpx;
+}
+image{
+  width: 280rpx;
+  height: 84rpx;
+}
+button{
+  background-color: #33A695;
+  color: #fff;
+  margin-top: 300rpx;
+}

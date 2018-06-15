@@ -1,0 +1,39 @@
+<view wx:if="{{ifLogin}}">
+  <view  class="header">
+    <image src="{{ head }}"></image>
+    <view class='header-con'>
+      <view class='phone'>{{ name }}</view>
+      <view class='bean'><text>{{ bean }}</text> 艺术豆</view>
+    </view>
+  </view>
+  <view class='con'>
+      <view class='invit'>
+        <view class='invit-int'>
+          <view>通过邀请好友可以获得艺术豆，每位使用您的</view>
+          <view>邀请链接成功注册的用户将给您带来 10 个艺术豆</view>
+        </view>
+        <view class='share'>邀请好友</view>
+        <view class='share-sucess'>您已成功邀请：<text>3</text> 位好友</view>
+      </view>
+      <view class='list'>
+        <navigator class='art'url="../art/art" hover-class="none">
+            <image mode="aspectFit" src='../../../resources/images/pro-1.png'></image>
+            <view>我的艺术品</view>    
+        </navigator>
+        <navigator class='app'url="../appraisal/appraisal" hover-class="none">
+            <image mode="aspectFit" src='../../../resources/images/pro-2.png'></image>
+            <view>估价记录</view>
+        </navigator>
+        <navigator class='bean-record' url="../bean/bean" hover-class="none">
+            <image mode="aspectFit" src='../../../resources/images/pro-2.png'></image>
+            <view>估价记录</view>
+        </navigator>
+        <navigator class='set' url="../security/security" hover-class="none">
+            <image mode="aspectFit" src='../../../resources/images/pro-4.png'></image>
+            <view>安全设置</view>
+        </navigator>
+      </view>
+  </view>
+</view>
+
+<button wx:else class="go-login"open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" style=''>授权登录</button>

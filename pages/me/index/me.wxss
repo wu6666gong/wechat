@@ -1,0 +1,126 @@
+.header{
+  padding: 10rpx 0 172rpx 36rpx;
+  background-color: #7AA8AB;
+  position: relative;
+  height: 128rpx;
+}
+.header image{
+  position: absolute;
+  left:36rpx;
+  top: 10rpx;
+  width: 128rpx;
+  height: 128rpx;
+  border-radius:50%; 
+}
+.header-con{
+  padding: 16rpx 0  0 164rpx;
+}
+.phone{
+  font-size: 32rpx;
+  color: #FFFFFF;
+  line-height: 44rpx;
+  margin-bottom:14rpx;
+  font-weight: bold;
+}
+.bean{
+  height: 40rpx;
+  line-height: 40rpx;
+  color: #FFFFFF;
+  font-size:28rpx; 
+}
+.bean text{
+  font-size:30rpx;
+  font-weight: bold;
+}
+.con{
+  position: relative;
+  padding: 260rpx 36rpx 0;
+}
+.invit{
+  position: absolute;
+  top:-116rpx;
+  left: 36rpx;
+  right: 36rpx;
+  padding:50rpx 0 50rpx;
+  background-color:#fff;
+  box-shadow: 0 10rpx 26rpx 4rpx rgba(122,168,171,0.23);
+  border-radius: 24rpx;
+  text-align: center; 
+}
+.invit-int{
+  font-size: 26rpx;
+  color: #333333;
+  width:100%;
+  margin-bottom: 32rpx;
+}
+.invit-int view{
+  line-height: 34rpx;
+}
+.share{
+  width: 216rpx;
+  height: 64rpx;
+  text-align: center;
+  line-height: 64rpx;
+  box-shadow: 0 10rpx 26rpx 4rpx rgba(122,168,171,0.23);
+  border-radius: 8rpx;
+  color: #fff;
+  font-size:28rpx;
+  background-color: #7AA8AB;
+  margin: 0 auto;
+  margin-bottom: 42rpx;
+}
+.share-sucess{
+  font-size: 34rpx;
+  color: #333333;
+  letter-spacing: 2rpx;
+}
+.share-sucess text{
+  font-weight: bold;
+  color: #33A695;
+  position: relative;
+  bottom: -2rpx;
+}
+.list{
+  width:680rpx;
+  margin: 0 auto;
+  display: flex;
+  box-sizing: border-box;
+  padding: 54rpx 12rpx 44rpx;
+  box-shadow: 0 10rpx 26rpx 4rpx rgba(122,168,171,0.23);
+  border-radius: 34rpx;
+}
+.list .view{
+  margin-top:16rpx;
+}
+.list image{
+  height: 52rpx;
+  width: 46rpx;
+}
+.art,.app,.bean-record,.set {
+  flex: 1;
+  font-size: 24rpx;
+  color: #333333;
+  text-align: center;
+}
+/* .art image{
+  width: 54rpx;
+  height: 40rpx;
+}
+.app image{
+  width: 38rpx;
+  height: 50rpx;
+}
+.bean-record image{
+  width: 44rpx;
+  height: 52rpx;
+}
+.set image{
+  width: 46rpx;
+  height: 52rpx;
+} */
+/*去授权*/
+.go-login{
+  background-color: #33A695;
+  color: #fff;
+  margin-top: 300rpx;
+}

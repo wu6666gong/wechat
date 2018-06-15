@@ -1,0 +1,152 @@
+<view class='list'>
+  <view class='list-top'>
+      <image class="header" src="../../../resources/test/header.jpg"></image>
+      <view class='name-detail' bindtap='tapName'>
+          <view class='name-top'>
+            <text class='name'>闫则名</text>
+            <text class='over-time'>1 分钟前</text>
+          </view>
+          <view class="reward">
+            持有人奖励 <text class='reward-num'>200 艺术豆</text>
+          </view>
+      </view>
+  </view>
+  <view class='list-middle'>
+      <view class='author'>
+        贾大年 
+        <navigator url='../appdetail/appdetail'>详情</navigator>
+      </view>
+      <view class='work-detail'>
+        风月无声风月无声风月无声，50 * 30，2016
+      </view>
+      <view class='author-int'>
+        在这幅画中，天地间的景象化作了浓厚、有力的颜料浆，顺着画笔跳动的轨迹，而涌 起阵阵旋涡。而涌起阵阵旋涡。
+      </view>
+      <swiper indicator-dots="true" indicator-active-color="#7AA8AB">
+          <block>
+            <swiper-item>
+              <view class='swiper-list'>
+                  <image lazy-load="true" mode="aspectFit" src="../../../resources/test/1.jpg"/>
+              </view>
+            </swiper-item>
+          </block>
+          <block>
+            <swiper-item>
+              <view class='swiper-list'>
+                <image lazy-load="true" mode="aspectFit"  src="../../../resources/test/2.jpg"/>
+              </view>
+            </swiper-item>
+          </block>
+          <block>
+            <swiper-item>
+              <view class='swiper-list'>
+                <image lazy-load="true" mode="aspectFit" src="../../../resources/test/3.jpg"/>
+              </view>
+            </swiper-item>
+          </block>
+    </swiper>
+  </view> 
+  <view class="list-bottom">
+      <!-- 进行中'Identify' -->
+      <view class='appraisal identify' wx:if="{{true}}">
+        <view class='app-con app-left'>
+            <view class='app-num'>已有 <text> 5 </text> 人参与</view>
+            <view class='app-time'>
+              <text>5</text>天 <text>23</text>小时 <text>57</text>分 <text>29</text>秒
+            </view>
+        </view>
+        <view class='app-con app-right'>
+          <view class='btn' bindtap="appraisal">估价</view> 
+          <!-- <view class='your-app'>您的估价：<text>2000</text> 元</view>
+          <view class='your-bean'><text>* 20</text> 艺术豆</view> -->
+        </view>
+      </view>
+      <!-- 估价结果 -->
+      <view class="apprasial-result identifyed" wx:elif="{{false}}">
+          <!-- <view class="fail">
+              共 18 人参与估价
+              <view class='fail-text'>估价失败</view>
+          </view> -->
+          <!-- <view class="your-result">
+                <view class="join-num">
+                  结果：<text class="res-money">2781.48</text> 元 / 18 人参与
+                </view>
+                <view class="your-app">
+                  估价：<text class="your-app-money">2781.48</text> 元 * <text>20</text> 艺术豆
+                </view>
+                <view class="your-reward">
+                  奖励：<text class="reward-bean">32.46</text> 艺术豆
+                </view>
+                <navigator>估价详情</navigator>
+          </view>  -->
+          <view class='result'>
+              结果：<text>2781.48</text> 元 / 18 人参与
+              <navigator url='../appdetail/appdetail'>估价详情</navigator>
+          </view>
+        </view>
+         <!--------------- 估价失败---------------- -->
+         <view wx:else>
+            估价失败
+         </view>
+  </view>
+</view>
+<view class='alert-iframe' catchtouchmove="preventD" hidden="{{ mask }}">
+    <view class='step1' hidden="{{ maskCon }}">
+        <view class='alert-name'>贾大年 - <text>风月无声风月无声</text></view>
+        <view class='input-con'>
+          <view class="input-title">估价金额</view>
+          <view class="input-num">
+              <input bindinput="bindRMB" type='number' maxlength='9' value="{{ RMB }}" confirm-type="next"/>
+              <view>RMB</view>
+          </view>
+          <view class='input-con-prompt'>在估价完成后将根据估价准确程度进行奖励</view>
+        </view>
+        <view class='input-con'>
+          <view class="input-title">多倍投注</view>
+          <view class="input-num">
+              <input  bindinput="bindMultiple" maxlength="2" value="{{ multiple }}" type='number'/>
+              <view>艺术豆</view>
+          </view>
+          <view class='input-con-prompt'>多倍投注使您的估价拥有更高的权重和回报</view>
+        </view>
+        <view class='btn-con'>
+          <button class='cancel' plain="true" bindtap='cancel'>取消</button>
+          <button class='sure' bindtap='sure' >确认</button>
+        </view>
+    </view>
+    <view class="step2" hidden="{{ !maskCon }}">
+      <view class='alert-name'>贾大年 - <text>风月无声风月无声</text></view>
+      <view class='alert-list'>
+          <view class='alert-list-con'>
+              估价金额
+              <view>{{ RMB }} <text>RMB</text></view>
+          </view>
+          <view class='alert-list-con'>
+              艺术豆
+              <view>{{ multiple }} <text>艺术豆</text></view>
+          </view>
+      </view>
+      <view class='alert-list'>
+          <view class='alert-list-con'>
+              支付艺术豆
+              <view class='green'>{{ multiple }} <text>艺术豆</text></view>
+          </view>
+          <view class='alert-list-con'>
+              账户余额
+              <view>50 <text>艺术豆</text></view>
+          </view>
+      </view>
+      <view class='pay-pwd'>
+        <view>
+          支付密码
+          <navigator url='../me/password/forgetpay/forgetpay' hover-class='none'>忘记密码？</navigator>
+        </view>
+        <input bindinput="bindPwd" value='{{ pwd }}'/>
+      </view>
+      <view class='pay-pwd-prompt'>支付密码至少6个字符</view>
+      <view class='btn-con'>
+          <button class='cancel' plain="true" bindtap='prev'>上一步</button>
+          <button class='sure' bindtap='sub'>确认</button>
+        </view>
+    </view>
+</view>
