@@ -1,20 +1,26 @@
 <view class='ul'>
-    <view class='li'>
-        <image src='../../resources/test/header.jpg'></image>
+    <view class='li' wx:for="{{ conList }}" wx:key="item.num">
+        <image src="{{ item.cover}}" mode='aspectFit'></image>
         <view class='list-con'>
           <view class='list-top'>
-            <text class='name'>张大千</text>
-            <!-- <text class='time'>2017-12-01</text> -->
-            <text class='appraisal-detail'>2018元 * 5倍</text>
+            <text class='name'>{{item.author }}</text>
+             <text class='time'>{{ item.gmt_create}}</text> 
+            <!-- <text class='appraisal-detail'>2018元 * 5倍</text> -->
           </view>
           <view class='list-middle'>
-            <text class='work'>街景街景</text>
+            <text class='work'>{{ item.name}}</text>
           </view>
           <view class='list-buttom'>
-            <!-- <text class='reg-status'>登记成功</text>
-            <text class="appraisal">5432.19 元</text> -->
-            <text class='app-time'>2017-12-01</text>
-            <text class='reward color-orange'>奖励：200.00 艺术豆</text>
+            <text wx:if="{{ item.status == 'REGOK'}}" class='reg-status'>登记成功</text>
+            <text wx:elif="{{ item.status == 'REGING'}}" class='reg-status'>登记中</text>
+            <text wx:elif="{{ item.status == 'DRAFT'}}" class='reg-status'>草稿</text>
+            <text wx:elif="{{ item.status == 'UNAUDIT'}}" class='reg-status'>未审核</text>
+            <text wx:elif="{{ item.status == 'AUDITFAIL'}}" class='reg-status'>审核不通过</text>
+            <text wx:else class='reg-status'>审核通过</text>
+
+            <text wx:if="{{ item.antiStatus == 'IDENTIFYED' }}" class="appraisal">{{ item.value.value}} 元</text> 
+            <!-- <text class='app-time'>2017-12-01</text>
+            <text class='reward color-orange'>奖励：200.00 艺术豆</text> -->
           </view>
         </view>
     </view>

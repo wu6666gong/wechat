@@ -1,11 +1,12 @@
 .list{
-  width: 100%;
+  width: 700rpx;
   border-radius: 24rpx;
   box-shadow: 1px 2px 5px 0 rgba(0,0,0,0.20);
   background-color:#fff;
   min-height: 200rpx;
   box-sizing: border-box;
   padding: 26rpx 48rpx 52rpx; 
+  margin: 0 auto;
 }
 .list-top{
   padding-bottom: 20rpx;

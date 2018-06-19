@@ -4,6 +4,5 @@
   },
   "enablePullDownRefresh":true,
   "backgroundTextStyle":"dark",
-  "backgroundColor":"#333",
-  "enablePullDownRefresh":true
+  "backgroundColor":"#333"
 }

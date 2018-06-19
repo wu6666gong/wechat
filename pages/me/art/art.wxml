@@ -1,1 +1,5 @@
-<me-list></me-list>
+<view class='scroll'>
+  <me-list con-list="{{ list }}"></me-list>
+  <view class='loading' hidden="{{ isLoading }}">正在加载...</view>
+</view>
+   

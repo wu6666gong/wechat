@@ -1,5 +1,4 @@
 //app.js
-//app.js
 App({
   onLaunch: function () {
     var the = this;
@@ -28,15 +27,18 @@ App({
           wx.request({
             url: the.globalData.url+'wxapp/login',
             method:"POST",
-            header: { 'content-type':'application/x-www-form-urlencoded' },
-            data:{
-              code:res.code
+            header: {
+              'content-type': 'application/json' // 默认值
             },
+            data: JSON.stringify({
+              code:res.code
+            }),
             success:function(res){
               var logs = wx.getStorageSync('logs') || {};
               console.log(res);
               logs.openId = res.data.data.openId
               wx.setStorageSync('logs',logs);
+              wx.setStorageSync('userNum', res.data.data.userNum);
             },
             fail:function(){
               the.loginError();
@@ -63,31 +65,26 @@ App({
     goUnionid:function(e,callback){
       var the = this;
       var data = e.detail;
+      var detail = data.userInfo;
       delete data.errMsg;
       delete data.userInfo;
-      console.log(wx.getStorageSync('logs'));
       let openId = wx.getStorageSync('logs').openId;
 
       data.openId = openId;
       wx.showLoading({
         title: '',
       })
-      var aaa = {
-        "aaa":1
-      }
-      console.log(aaa);
-      console.log(data);
       wx.request({
         url: the.url+'wxapp/info',
         method:"POST",
         header: {
           'content-type': 'application/json' // 默认值
         },
-        data: JSON.stringify(),
+        data: JSON.stringify(data),
         success:function(e){
           wx.hideLoading();
           console.log(e);
-          callback();
+          callback(detail);
         },
         fail:function(){
           wx.hideLoading();
@@ -99,6 +96,10 @@ App({
         complete:function(){
         }
       })
+    },
+    getId() {
+      var id = wx.getStorageSync('userNum');
+      return id;
     }
   }
 })

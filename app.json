@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/appdetail/appdetail",
+    "pages/price/price",
     "pages/me/index/me",
     "pages/login/login",
     "pages/me/password/modifypay2/modifypay2",
@@ -10,8 +12,7 @@
     "pages/me/password/setpay/setpay",
     "pages/me/bean/bean",
     "pages/me/appraisal/appraisal",
-    "pages/me/art/art",
-    "pages/appdetail/appdetail"
+    "pages/me/art/art"
   ],
   "window": {
     "backgroundTextStyle": "light",

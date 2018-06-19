@@ -4,5 +4,11 @@
   /* background-color: #f2f2f2; */
   margin: 0 auto;
   padding-top: 30rpx;
-  padding-bottom: 50rpx;
+  padding-bottom: 10rpx;
+}
+.loading{
+  width: 100%;
+  text-align: center;
+  height: 80rpx;
+  line-height: 80rpx;
 }

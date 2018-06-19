@@ -1,0 +1,16 @@
+<view class="container">
+  <view class='t-head'>
+    <view class='t1'>序号</view>
+    <view class='t2'>时间</view>
+    <view class='t3'>手机号</view>
+    <view class='t4'>估价</view>
+    <view class='t5'>艺术豆</view>
+  </view>
+  <view class='t-body'>
+     <view class='t1'>1</view>
+     <view class='t2'>2018-5-19 14:50:32</view>
+     <view class='t3'>15321916178</view>
+     <view class='t4'>800.00</view>
+     <view class='t5'>6</view>
+  </view>
+</view>

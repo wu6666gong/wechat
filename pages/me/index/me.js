@@ -7,6 +7,17 @@ Page({
     head:'',
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
+  onShareAppMessage: function (res) {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title: '邀请好友',
+      path: 'pages/me/index/index',
+      imageUrl: "https://moochain-art.oss-cn-beijing.aliyuncs.com/test/U1508461388039897249/ypRRNxD7e2/more_1.jpg"
+    }
+  },
   onShow(){
     var the = this;
     wx.getSetting({
@@ -15,7 +26,6 @@ Page({
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称
           wx.getUserInfo({
             success: function (res) {
-              console.log(res);
               the.setData({
                 ifLogin: true,
                 name: res.userInfo.nickName,
@@ -33,11 +43,11 @@ Page({
   },
   bindGetUserInfo: function (e) {
     var the = this;
-    app.globalData.goUnionid(e,function(){
+    app.globalData.goUnionid(e, function (detail){
       the.setData({
         ifLogin: true,
-        name: e.detail.userInfo.nickName,
-        head: e.detail.userInfo.avatarUrl
+        name: detail.nickName,
+        head: detail.avatarUrl
       })  
     });
   

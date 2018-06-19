@@ -12,7 +12,7 @@
           <view>通过邀请好友可以获得艺术豆，每位使用您的</view>
           <view>邀请链接成功注册的用户将给您带来 10 个艺术豆</view>
         </view>
-        <view class='share'>邀请好友</view>
+        <button class='share' open-type='share' bindtap='share'>邀请好友</button> 
         <view class='share-sucess'>您已成功邀请：<text>3</text> 位好友</view>
       </view>
       <view class='list'>

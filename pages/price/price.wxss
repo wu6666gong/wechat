@@ -1,0 +1,39 @@
+.container{
+  width: 100%;
+  padding: 10rpx 24rpx;
+  box-sizing: border-box; 
+}
+.t-head view{
+  height: 72rpx;
+  line-height: 50rpx;
+  font-size: 28rpx;
+  color: #333333;
+  float: left;
+  text-align: center;
+  font-weight: bold;
+}
+.t-body view{
+  display:table-cell;
+  font-size: 24rpx;
+  color: #333333;
+  text-align: center;
+  height: 94rpx;
+  box-sizing: border-box;
+  vertical-align: middle;
+  border-top:2rpx solid #ddd; 
+}
+.t-head .t1,.t-body .t1{
+  width: 80rpx;
+}
+.t-head .t2,.t-body .t2{
+  width: 176rpx;
+}
+.t-head .t3,.t-body .t3{
+  width: 196rpx;
+}
+.t-head .t4,.t-body .t4{
+  width: 152rpx;
+}
+.t-head .t5,.t-body .t5{
+  width: 96rpx;
+}

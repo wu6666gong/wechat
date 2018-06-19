@@ -1,4 +1,7 @@
 <view>
     <list-content></list-content>
 </view>
+<view class='app-table'>
+    <navigator url='../price/price'>估价结果</navigator>
+</view>
 <canvas canvas-id="firstCanvas"></canvas>

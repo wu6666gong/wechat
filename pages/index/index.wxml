@@ -1,6 +1,7 @@
 <!--index.wxml-->
 <view class="container">
-      <list-content inner-text="练习"></list-content>    
+      <list-content inner-text="练习"></list-content>
+      <view class='loading' hidden="{{ isLoading }}">正在加载...</view>    
 </view>
 
 

@@ -3,3 +3,20 @@ canvas{
   height: 265px;
   margin: 30rpx auto;
 }
+.app-table{
+  height: 70rpx;
+  line-height: 70rpx;
+  width: 700rpx;
+  margin: 0 auto;
+  text-align: right;
+  margin-top:30rpx; 
+}
+.app-table navigator{
+  font-size: 28rpx;
+  width: 180rpx;
+  text-align: center;
+  background-color: #7AA8AB;
+  float: right;
+  color: #fff;
+  border-radius:8rpx; 
+}
