@@ -41,3 +41,9 @@ view{
 .orange{
   color: #FF7150;
 }
+.loading{
+  width: 100%;
+  text-align: center;
+  height: 80rpx;
+  line-height: 80rpx;
+}

@@ -1,16 +1,22 @@
 <view class='container'>
-    <navigator class='list' url='../password/setpay/setpay' hover-class='none'>
+    <view wx:if="{{ !showCon }}">
+      <navigator   class='list' url='../password/setpay/setpay' hover-class='none'>
       设置支付密码
       <image src='../../../resources/images/arrow-r.png' mode='scaleToFill'></image>
-    </navigator>
-    <view class="line"></view>
-    <navigator class='list' url='../password/forgetpay/forgetpay' hover-class='none'>
-      忘记支付密码
-      <image src='../../../resources/images/arrow-r.png'  mode='scaleToFill'></image>
-    </navigator>
-     <view class="line"></view>
-     <navigator class='list' url='../password/modifypay1/modifypay1' hover-class='none'>
-      修改支付密码
-      <image src='../../../resources/images/arrow-r.png'  mode='scaleToFill'></image>
-    </navigator>
+      </navigator>
+      <view class="line"></view>
+    </view>
+    <view wx:else>
+      <navigator class='list' url='../password/forgetpay/forgetpay' hover-class='none'>
+        忘记支付密码
+        <image src='../../../resources/images/arrow-r.png'  mode='scaleToFill'></image>
+      </navigator>
+      <view class="line"></view>
+      <navigator class='list' url='../password/modifypay1/modifypay1' hover-class='none'>
+        修改支付密码
+        <image src='../../../resources/images/arrow-r.png'  mode='scaleToFill'></image>
+      </navigator>
+    </view>
+    
+    
 </view>

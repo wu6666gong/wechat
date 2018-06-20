@@ -1,11 +1,10 @@
-<view class='ul'>
+<view wx:if="{{ conType == 'art'}}" class='ul'>
     <view class='li' wx:for="{{ conList }}" wx:key="item.num">
         <image src="{{ item.cover}}" mode='aspectFit'></image>
         <view class='list-con'>
           <view class='list-top'>
             <text class='name'>{{item.author }}</text>
              <text class='time'>{{ item.gmt_create}}</text> 
-            <!-- <text class='appraisal-detail'>2018元 * 5倍</text> -->
           </view>
           <view class='list-middle'>
             <text class='work'>{{ item.name}}</text>
@@ -19,8 +18,30 @@
             <text wx:else class='reg-status'>审核通过</text>
 
             <text wx:if="{{ item.antiStatus == 'IDENTIFYED' }}" class="appraisal">{{ item.value.value}} 元</text> 
-            <!-- <text class='app-time'>2017-12-01</text>
-            <text class='reward color-orange'>奖励：200.00 艺术豆</text> -->
+          </view>
+        </view>
+    </view>
+</view>
+<view  wx:else  class='ul'>
+    <view class='li' wx:for="{{ conList }}" wx:key="item.id">
+        <image src="{{ item.artDTO.cover }}" mode='aspectFit'></image>
+        <view class='list-con'>
+          <view class='list-top'>
+            <text class='name'>{{item.artDTO.author }}</text>
+            <text class='appraisal-detail color-black6' wx:if="{{ item.valueDTO.status == 'FAIL' }}">{{item.assess.value}}元 * {{item.assess.value}}倍</text> 
+            <text class='appraisal-detail' wx:else>{{item.assess.value}}元 * {{item.assess.value}}倍</text> 
+          </view>
+          <view class='list-middle'>
+            <text class='work'>{{ item.artDTO.name }}</text>
+            <text class='res-price' wx:if="{{ item.valueDTO.status == 'IDENTIFYED' }}">{{item.valueDTO.value.value}} 元</text>
+          </view>
+          <view class='list-buttom'>
+            <text wx:if="{{ item.status == 'REGOK'}}" class='reg-status'>登记成功</text>
+            <text wx:if="{{ item.antiStatus == 'IDENTIFYED' }}" class="appraisal">{{ item.value.value}} 元</text> 
+            <text class='app-time'>{{item.valueDTO.gmt_create}}</text>
+            <text class='reward ' wx:if = "{{ item.valueDTO.status == 'FAIL' }}">估价失败</text>
+            <text class='reward color-blue' wx:elif = "{{item.valueDTO.status == 'IDENTIFY' }}">估价进行中</text>
+            <text class='reward color-orange' wx:else>奖励：{{item.award.value}} 艺术豆</text>
           </view>
         </view>
     </view>

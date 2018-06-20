@@ -6,8 +6,9 @@ Page({
   data:{
     isLoading:true
   },
+  onLoad(){
+  },
   onShow(){
-
   },
   onReachBottom: function () {
     var the = this;

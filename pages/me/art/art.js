@@ -1,7 +1,7 @@
 const app = getApp();
 let page=1;
-const id = app.globalData.getId();
 const getList =(the)=>{
+  const id = app.globalData.getId();
   the.setData({
     isLoading: false
   })
@@ -44,18 +44,14 @@ Page({
    */
   data: {
     isLoading:true,
-    list:[]
+    list:[],
+    dataType:'art'
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var id = app.globalData.getId();
-    wx.showLoading({
-      title: '',
-    });
-    wx.hideLoading();
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

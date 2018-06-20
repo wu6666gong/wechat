@@ -1,10 +1,11 @@
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    
+    showCon:false
   },
 
   /**
@@ -25,7 +26,27 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    const the = this;
+    const id = app.globalData.getId();
+    wx.request({
+      url: app.globalData.url +'wxapp/ajax/security',
+      method:'POST',
+      data:{
+        num: id
+      },
+      success(res){
+        console.log(res)
+        the.setData({
+          showCon:res.data.data.flag
+        })
+      },
+      fail(){
+        wx.showToast({
+          title: "发生未知错误",
+          icon:"none"
+        })
+      }
+    })
   },
 
   /**

@@ -5,16 +5,23 @@
     <view class='t3'>类型</view>
     <view class='t4'>数量</view>
   </view>
-  <view class='t-body'>
-     <view class='t1'>2018-04-26</view>
-     <view class='t2'>圆舞曲目</view>
-     <view class='t3'>退还估价费</view>
-     <view class='t4'>+2000.00</view>
+  <view class='t-body' wx:for="{{ list }}" wx:key="{{ index }}">
+     <view class='t1'>{{ item.gmt_create }}</view>
+     <view class='t2'>{{ item.artName ? item.artName:"---" }}</view>
+     <view class='t3' wx:if="{{ item.type == 'REGISTER'}}" >注册</view>
+     <view class='t3' wx:elif="{{ item.type == 'GROUP_AWARD'}}" >估价群奖励</view>
+     <view class='t3' wx:elif="{{ item.type == 'MULTIPLE'}}" >估价艺术豆</view>
+     <view class='t3' wx:elif="{{ item.type == 'RETURN_MULTIPLE'}}" >退还艺术豆</view>
+     <view class='t3' wx:elif="{{ item.type == 'INVITATION_FEE'}}" >邀请估价费</view>
+     <view class='t3' wx:elif="{{ item.type == 'RETURN_INVITATION_FEE'}}" >退还估价费</view>
+     <view class='t3' wx:elif="{{ item.type == 'AWARD'}}" >估价奖励</view>
+     <view class='t3' wx:elif="{{ item.type == 'RECHARGE'}}" >充值</view>
+     <view class='t3' wx:elif="{{ item.type == 'INVITATION'}}" >邀请奖励</view>
+     <view class='t3' wx:else >登记奖励</view>
+
+      <view class='t4 orange' wx:if="{{ item.type== 'GROUP_AWARD' || item.type== 'AWARD' || item.type== 'INVITATION' || item.type== 'REGOK_ART' || item.type== 'REGISTER'}}">+{{ item.sum.value }}</view>
+     <view class='t4' wx:else>-{{ item.sum.value }}</view> 
+
   </view>
-   <view class='t-body'>
-     <view class='t1'>2018-04-26</view>
-     <view class='t2'>圆舞曲目</view>
-     <view class='t3'>退还估价费</view>
-     <view class='t4 orange'>+2000.00</view>
-  </view>
+  <view class='loading' hidden="{{ isLoading }}">正在加载...</view>
 </view>

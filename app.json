@@ -1,15 +1,15 @@
 {
   "pages": [
+    "pages/me/password/modifypay2/modifypay2",
+    "pages/me/password/modifypay1/modifypay1",
     "pages/index/index",
+    "pages/me/password/forgetpay/forgetpay",
+    "pages/me/password/setpay/setpay",
     "pages/appdetail/appdetail",
     "pages/price/price",
     "pages/me/index/me",
-    "pages/login/login",
-    "pages/me/password/modifypay2/modifypay2",
-    "pages/me/password/modifypay1/modifypay1",
+    "pages/me/login/login",
     "pages/me/security/security",
-    "pages/me/password/forgetpay/forgetpay",
-    "pages/me/password/setpay/setpay",
     "pages/me/bean/bean",
     "pages/me/appraisal/appraisal",
     "pages/me/art/art"

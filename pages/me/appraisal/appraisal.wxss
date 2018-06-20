@@ -1,0 +1,6 @@
+.loading{
+  width: 100%;
+  text-align: center;
+  height: 80rpx;
+  line-height: 80rpx;
+}

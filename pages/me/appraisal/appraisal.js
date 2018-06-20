@@ -1,16 +1,16 @@
 const app = getApp();
 let page = 1;
-const id = app.globalData.getId();
 const getList = (the) => {
+  const id = app.globalData.getId();
   the.setData({
     isLoading: false
   })
   wx.request({
-    url: app.globalData.url + 'wxapp/ajax/mine',
+    url: app.globalData.url + 'wxapp/ajax/join',
     method: 'POST',
     data: {
       currentPage: page,
-      ownerNum: id
+      num: id
     },
     success(res) {
       console.log(res);
@@ -24,6 +24,7 @@ const getList = (the) => {
         return
       }
       for (var i = 0; i < length; i++) {
+        res.data.data.arts[i]['id'] = (i + 1) * page
         l.push(res.data.data.arts[i]);
       }
       the.setData({
@@ -43,14 +44,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    isLoading: true,
+    list: [],
+    dataType: 'appraisal'
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
   },
 
   /**
@@ -64,7 +66,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    var the = this;
+    getList(the);
   },
 
   /**
@@ -92,7 +95,8 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    
+    var the = this;
+    getList(the);
   },
 
   /**

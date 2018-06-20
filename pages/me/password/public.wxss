@@ -42,7 +42,7 @@ button{
   position: absolute;
   right: 0;
   bottom: 68rpx;
-  width: 168rpx;
+  width: 170rpx;
   height: 68rpx;
 }
 .btn{

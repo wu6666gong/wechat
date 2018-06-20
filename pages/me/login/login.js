@@ -61,13 +61,5 @@ Page({
    */
   onShareAppMessage: function () {
     
-  },
-  bindGetUserInfo: function (e) {;
-    app.globalData.goUnionid(e,function(){
-        wx.navigateBack({
-          delta:1
-        })
-    });
-  
   }
 })

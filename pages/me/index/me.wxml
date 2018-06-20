@@ -1,13 +1,14 @@
-<view wx:if="{{ifLogin}}">
+<view>
   <view  class="header">
     <image src="{{ head }}"></image>
-    <view class='header-con'>
+    <view class='header-con' wx:if="{{ isId?true:false}}">
       <view class='phone'>{{ name }}</view>
       <view class='bean'><text>{{ bean }}</text> 艺术豆</view>
     </view>
+    <navigator class='login' wx:else url='../login/login' hover-class='none'>登录/注册</navigator>
   </view>
   <view class='con'>
-      <view class='invit'>
+      <view class='invit' wx:if="{{ isId?true:false }}">
         <view class='invit-int'>
           <view>通过邀请好友可以获得艺术豆，每位使用您的</view>
           <view>邀请链接成功注册的用户将给您带来 10 个艺术豆</view>
@@ -15,25 +16,23 @@
         <button class='share' open-type='share' bindtap='share'>邀请好友</button> 
         <view class='share-sucess'>您已成功邀请：<text>3</text> 位好友</view>
       </view>
-      <view class='list'>
-        <navigator class='art'url="../art/art" hover-class="none">
+      <view class="list {{ isId?'':'no-login-list' }}">
+        <navigator class='art' url="{{ isId?'../art/art':'../login/login' }}" hover-class="none">
             <image mode="aspectFit" src='../../../resources/images/pro-1.png'></image>
             <view>我的艺术品</view>    
         </navigator>
-        <navigator class='app'url="../appraisal/appraisal" hover-class="none">
+        <navigator class='app'url="{{ isId?'../appraisal/appraisal':'../login/login' }}" hover-class="none">
             <image mode="aspectFit" src='../../../resources/images/pro-2.png'></image>
             <view>估价记录</view>
         </navigator>
-        <navigator class='bean-record' url="../bean/bean" hover-class="none">
-            <image mode="aspectFit" src='../../../resources/images/pro-2.png'></image>
-            <view>估价记录</view>
+        <navigator class='bean-record' url="{{ isId?'../bean/bean':'../login/login' }}" hover-class="none">
+            <image mode="aspectFit" src='../../../resources/images/pro-3.png'></image>
+            <view>艺术豆记录</view>
         </navigator>
-        <navigator class='set' url="../security/security" hover-class="none">
+        <navigator class='set' url="{{ isId?'../security/security':'../login/login' }}" hover-class="none">
             <image mode="aspectFit" src='../../../resources/images/pro-4.png'></image>
             <view>安全设置</view>
         </navigator>
       </view>
   </view>
 </view>
-
-<button wx:else class="go-login"open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" style=''>授权登录</button>
