@@ -1,13 +1,95 @@
-.container{
-  text-align: center;
-  margin-top: 200rpx;
+page{
+  width: 100%;
+  height: 100%;
 }
-image{
-  width: 280rpx;
-  height: 84rpx;
+.container{
+  width: 100%;
+  height: 100%;
+  background:url("https://moochain-art.oss-cn-beijing.aliyuncs.com/production/U1508461388039897249/cAAmYcEjm4/more_2.jpg") no-repeat;
+  background-size:100% 100%;
+}
+.head{
+  text-align: center;
+  padding-top: 80rpx;
+  padding-bottom: 100rpx;
+}
+.head image{
+  width: 260rpx;
+  height: 86rpx;
+  padding-bottom:46rpx; 
+}
+.head-int view{
+  font-size: 30rpx;
+  color: #FFFFFF;
+  line-height: 36rpx;
+}
+.con{
+  width: 560rpx;
+  margin: 0 auto;
+}
+.list{
+  margin-bottom: 68rpx;
+  position: relative;
+}
+.have-p{
+  margin-bottom: 64rpx;
+}
+.title{
+  font-size: 28rpx;
+  color: #FFFFFF;
+  line-height: 36rpx;
+  margin-top: 8rpx;
+}
+.list input{
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 32rpx;
+  color: #fff;
+  border-bottom: 2rpx solid #fff;
+  /* caret-color:#fff; */
+}
+.prompt{
+  font-size: 26rpx;
+  color: #DBDBDB;
+  line-height: 30rpx;
+  margin-top: 12rpx;
+}
+.code input{
+  margin-right: 212rpx;
+}
+.code image{
+  width: 168rpx;
+  height: 64rpx;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #333;
 }
 button{
-  background-color: #33A695;
-  color: #fff;
-  margin-top: 300rpx;
+  background-color: rgba(122,168,171,0.9);
+  border-radius: 24rpx;
+  height: 86rpx;
+  line-height: 86rpx;
+  font-size: 36rpx;
+  color: #FFFFFF;
+}
+.first button{
+  margin-top: 200rpx;
+}
+.list .disabled{
+  border-bottom:none; 
+}
+.get-code{
+  width: 170rpx;
+  height: 64rpx;
+  font-size: 28rpx;
+  text-align: center;
+  line-height: 64rpx;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-radius:16rpx; 
+}
+.sure{
+  margin-top: 200rpx;
 }

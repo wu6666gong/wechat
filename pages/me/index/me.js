@@ -1,5 +1,5 @@
 const app = getApp();
-const id = app.globalData.getId();
+let id = app.globalData.getId();
 Page({
   data:{
     bean:0,
@@ -13,13 +13,17 @@ Page({
       console.log(res.target)
     }
     return {
-      title: '邀请好友',
+      title: '快来 Artval，给艺术品估价，猜对有奖',
       path: 'pages/me/index/index',
-      imageUrl: "https://moochain-art.oss-cn-beijing.aliyuncs.com/test/U1508461388039897249/ypRRNxD7e2/more_1.jpg"
+      imageUrl: "https://moochain-art.oss-cn-beijing.aliyuncs.com/production/U1508461388039897249/CmAj76MytZ/more_3.jpg"
     }
   },
   onShow(){
     var the = this;
+    id = app.globalData.getId();
+    if(!id){
+      return false
+    }
     wx.request({
       url: app.globalData.url +'wxapp/info ',
       method:'POST',

@@ -1,6 +1,6 @@
 <view class='container'>
     <view class='list have-p'>
-        <view class='title'>现有支付密码</view>
+        <view class='title'>新支付密码</view>
         <input bindinput='pwd1'></input>
         <view class='prompt'>
           支付密码不少于6个字符

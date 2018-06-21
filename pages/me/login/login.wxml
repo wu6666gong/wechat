@@ -1,3 +1,36 @@
 <view class='container'>
-    登录
+  <view class='head'>
+    <image src="https://moochain-art.oss-cn-beijing.aliyuncs.com/production/U1508461388039897249/C6p7QGxwX6/more_1.png"></image>
+    <view class='head-int'>
+      <view>注册成为 Artval 用户即可获得的 50 艺术豆</view>
+      <view>邀请好友加入可以获得更多艺术豆</view>
+    </view>
+  </view>
+  <view class='con first' hidden='{{ isNext }}'>
+    <view class='list have-p'>
+      <view class='title'>手机号码</view>
+      <input bindinput='tel'></input>
+      <view class='prompt'>
+        如果您还没有用这个手机号注册过 Artval，我们将为您创建 Artval 账号
+      </view>
+    </view>
+    <view class='list code'>
+      <view class='title'>图形验证码</view>
+      <input bindinput='imgCode'></input>
+      <image src="{{ imgUrl }}" bindtap='getImg'></image>
+    </view>
+    <button hover-class='none' bindtap='next'>下一步</button>
+  </view>
+  <view class='con last' hidden='{{ !isNext }}'>
+    <view class='list'>
+      <view class='title'>手机号码</view>
+      <input disabled="true" class='disabled' value='{{ tel }}'></input>
+    </view>
+    <view class='list code'>
+      <view class='title'>短信验证码</view>
+      <input type='number' maxlength='6' bindinput='messageCode'></input>
+      <button class='get-code' hover-class="none" bindtap='get' disabled="{{ getBtn>0?true:false}}">{{ getBtn }}</button>
+    </view>
+    <button hover-class='none' bindtap='sure' class='sure'>确认</button>
+  </view>
 </view>

@@ -1,3 +1,4 @@
+const app = getApp();
 var initial={
   mask: true,
   maskCon: false,
@@ -27,20 +28,16 @@ Component({
         urls: ["https://moochain-art.oss-cn-beijing.aliyuncs.com/production/admin/PbiwZrwtez/cover.png", "https://moochain-art.oss-cn-beijing.aliyuncs.com/production/admin/QsE2h3rkxB/cover.png"] // 需要预览的图片http链接列表
       })
     },
+     //点击估价按钮
     appraisal(){
-      var the = this;
-      wx.getSetting({
-        success: function (res){
-          if (res.authSetting['scope.userInfo']){
-            the.setData({
-              mask: false
-            })
-          }else{
-            wx.navigateTo({
-              url: '/pages/login/login?url=/pages/login/login'
-            })
-          }
-        }
+      let the = this;
+      let id = app.globalData.getId();
+      if(!id){
+        console.log('该登录');
+        return false
+      }
+      the.setData({
+        mask: false
       })
     },
     //弹窗取消按钮
@@ -113,7 +110,6 @@ Component({
         })
        
       }
-     
     }
   },
   created:function(){

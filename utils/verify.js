@@ -1,4 +1,41 @@
+const phoExp = /^1(3|4|5|6|7|8|9)\d{9}$/
 const verify = {
+  isPhone:function(str){
+    if (!str) {
+      return {
+        judge: false,
+        val: '手机号不能为空'
+      }
+    } else if (!phoExp.test(str)) {
+      return {
+        judge: false,
+        val: "手机号码格式不正确"
+      }
+    } else {
+      return {
+        judge: true,
+        val: str
+      }
+    }
+  },
+  isImgCode: function (str) {        //图形验证码
+    if (!str) {
+      return {
+        judge: false,
+        val: '请填写图形验证码'
+      }
+    } else if (str.length != 5) {
+      return {
+        judge: false,
+        val: "图形验证码不正确"
+      }
+    } else {
+      return {
+        judge: true,
+        val: str
+      }
+    }
+  },
   isCode: function (str) {        //验证码判断
     if (!str) {
       return {

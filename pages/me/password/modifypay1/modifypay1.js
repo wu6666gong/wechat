@@ -39,7 +39,7 @@ Page({
       getBtn: 60
     })
     wx.request({
-      url: app.globalData.url + 'wxapp/send/sms ',
+      url: app.globalData.url + 'wxapp/send/sms',
       data: {
         num: id
       },
@@ -100,7 +100,7 @@ Page({
       })
       let data = {};
       data.userNum = id;
-      data.password = pwd1.val;
+      data.oldpsw = pwd1.val;
       data.code = code.val;
       wx.request({
         url: app.globalData.url + 'wxapp/check/psd',

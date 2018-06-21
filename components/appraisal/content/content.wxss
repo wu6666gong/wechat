@@ -6,7 +6,7 @@
   min-height: 200rpx;
   box-sizing: border-box;
   padding: 26rpx 48rpx 52rpx; 
-  margin: 0 auto;
+  margin: 0 auto 50rpx;
 }
 .list-top{
   padding-bottom: 20rpx;
