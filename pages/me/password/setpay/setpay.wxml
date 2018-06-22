@@ -1,19 +1,24 @@
 <view class='container'>
-    <view class='list have-p'>
-        <view class='title'>支付密码</view>
-        <input bindinput='pwd1'></input>
-        <view class='prompt'>
-          支付密码不少于6个字符
-        </view>
+  <view class='list have-p'>
+    <view class='title'>支付密码</view>
+    <input bindinput='pwd1' password="true"></input>
+    <view class='prompt'>
+      支付密码不少于6个字符
     </view>
-    <view class='list'>
-        <view class='title'>重复支付密码</view>
-        <input bindinput='pwd2'></input>
-    </view>
-    <view class='list have-code'>
-        <view class='title'>短信验证码</view>
-        <input bindinput='code'></input>
-        <button bindtap='get' hover-class="none" disabled="{{ getBtn>0?true:false}}">{{ getBtn }}</button>
-    </view>
-    <button class='btn' bindtap='sure' hover-class="none">确认</button>
+  </view>
+  <view class='list'>
+    <view class='title'>重复支付密码</view>
+    <input bindinput='pwd2' password="true"></input>
+  </view>
+  <view class='list have-imgCode'>
+    <view class='title'>图形验证码</view>
+    <input bindinput='imgCode' maxlength='5'></input>
+    <image bindtap='getImgCode'  src="{{ imgUrl }}"></image>
+  </view>
+  <view class='list have-code'>
+    <view class='title'>短信验证码</view>
+    <input bindinput='code'></input>
+    <button bindtap='get' hover-class="none" disabled="{{ getBtn>0?true:false}}">{{ getBtn }}</button>
+  </view>
+  <button class='btn' bindtap='sure' hover-class="none">确认</button>
 </view>

@@ -33,7 +33,7 @@ Page({
    * 获取图片url
    */
   getImgUrl(){
-    let unionId = wx.getStorageSync('logs').openId;
+    let unionId = app.globalData.getUnionId();
     let imgUrl = app.globalData.url + "gainImgCode/" +unionId+"?" + Math.random();
     this.setData({
       imgUrl: imgUrl
@@ -57,7 +57,7 @@ Page({
   },
   next(){
     let the = this;
-    let unionId = wx.getStorageSync('logs').openId;
+    let unionId = app.globalData.getUnionId();
     let tel = verify.isPhone(the.data.tel);
     let imgVal = verify.isImgCode(the.data.imgVal);
     if (!tel.judge){
@@ -112,13 +112,17 @@ Page({
     var the = this;
     let id = app.globalData.getId();
     let tel = the.data.tel;
+    let imgVal = the.data.imgVal;
+    let unionId = wx.getStorageSync('logs').openId;
     the.setData({
       getBtn: 60
     })
     wx.request({
       url: app.globalData.url + 'wxapp/send/code',
       data: {
-        mobile: tel
+        mobile: tel,
+        imgCode: imgVal,
+        unionId: unionId
       },
       method: 'POST',
       success(res) {
@@ -158,6 +162,7 @@ Page({
     let the = this;
     let tel = the.data.tel;
     let code = verify.isCode(the.data.messageCode);
+    let UnionId = app.globalData.getUnionId();
     if (!code.judge){
       wx.showToast({
         title: code.val,
@@ -172,7 +177,8 @@ Page({
         method:'POST',
         data:{
           mobile: tel,
-          code: code.val
+          code: code.val,
+          unionId: UnionId
         },
         success(res){
           wx.hideLoading()

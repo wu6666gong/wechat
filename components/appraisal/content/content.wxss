@@ -94,6 +94,9 @@
  .appraisal{
   display:flex;
 }
+.timeing{
+  display:flex;
+}
 .identify .app-con{
   flex:1;
 }

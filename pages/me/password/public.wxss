@@ -28,7 +28,7 @@ input{
   line-height: 34rpx;
   margin-top:12rpx; 
 }
-.have-code input{
+.have-code input,.have-imgCode input{
   margin-right:  212rpx;
 }
 button{
@@ -37,13 +37,16 @@ button{
   line-height: 68rpx;
   border: none;
 }
-.have-code button{
+.have-code button,.have-imgCode image{
   font-size: 28rpx;
   position: absolute;
   right: 0;
   bottom: 68rpx;
   width: 170rpx;
   height: 68rpx;
+}
+.have-imgCode image{
+  background-color: #333;
 }
 .btn{
   height: 90rpx;

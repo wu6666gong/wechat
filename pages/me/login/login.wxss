@@ -64,6 +64,7 @@ page{
   bottom: 0;
   right: 0;
   background-color: #333;
+  border-radius:8rpx; 
 }
 button{
   background-color: rgba(122,168,171,0.9);

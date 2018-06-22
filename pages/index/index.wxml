@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <view class="container">
-      <list-content inner-text="练习"></list-content>
+      <list-content wx:for="{{ items }}" d="{{ item }}" wx:key="{{ index }}"></list-content>
       <view class='loading' hidden="{{ isLoading }}">正在加载...</view>    
 </view>
 

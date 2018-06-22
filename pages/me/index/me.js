@@ -1,9 +1,8 @@
 const app = getApp();
-let id = app.globalData.getId();
 Page({
   data:{
     bean:0,
-    isId: id,
+    isId: '',
     name:'---',  head:'https://moochain-art.oss-cn-beijing.aliyuncs.com/production/U1508461388039897249/HFrct7yrXB/more_1.png'
   },
   //邀请好友
@@ -20,7 +19,10 @@ Page({
   },
   onShow(){
     var the = this;
-    id = app.globalData.getId();
+    let id = app.globalData.getId();
+    the.setData({
+      isId: id
+    })
     if(!id){
       return false
     }

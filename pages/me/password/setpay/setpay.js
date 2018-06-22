@@ -10,7 +10,9 @@ Page({
     pwd1:'',
     pwd2:'',
     code:'',
-    getBtn:'获取'
+    getBtn:'获取',
+    imgUrl:"",
+    imgVal:""
   },
   /**
    * 支付密码
@@ -39,19 +41,49 @@ Page({
       code: val
     })
   },
+  /**
+  * 图形验证码
+  */
+  imgCode(e) {
+    let val = e.detail.value;
+    this.setData({
+      imgVal: val
+    })
+  },
+    /**
+   * 获取图片验证码
+   */
+  getImgCode(){
+    let unionId = wx.getStorageSync('logs').openId;
+    let imgUrl = app.globalData.url + "gainImgCode/" + unionId + "?" + Math.random();
+    this.setData({
+      imgUrl: imgUrl
+    })
+  },
    /**
    * 获取验证码
    */
   get(){
     var the = this;
     let id = app.globalData.getId();
+    let UnionId = app.globalData.getUnionId();
+    let imgVal = verify.isImgCode(the.data.imgVal);
+    if (!imgVal.judge) {
+      wx.showToast({
+        title: imgVal.val,
+        icon: "none"
+      })
+      return false
+    }
     the.setData({
       getBtn:60
     })
     wx.request({
       url: app.globalData.url + 'wxapp/send/sms ',
       data:{
-        num:id
+        unionId: UnionId,
+        num:id,
+        imgCode: imgVal.val
       },
       method:'POST',
       success(res){
@@ -92,9 +124,11 @@ Page({
   sure(){
       const the = this;
       const id = app.globalData.getId();
+      const UnionId = app.globalData.getUnionId();
       let pwd1 = verify.isPwd(the.data.pwd1);
       let pwd2 = verify.isConfirmPwd(the.data.pwd2, the.data.pwd1);
       let code = verify.isCode(the.data.code);
+      let imgVal = verify.isImgCode(the.data.imgVal);
       if (!pwd1.judge){
         wx.showToast({
           title: pwd1.val,
@@ -105,7 +139,12 @@ Page({
           title: pwd2.val,
           icon: "none"
         })
-      } else if (!code.judge){
+      } else if (!imgVal.judge ){
+        wx.showToast({
+          title: imgVal.val,
+          icon: "none"
+        })
+      }else if (!code.judge){
         wx.showToast({
           title: code.val,
           icon: "none"
@@ -118,6 +157,8 @@ Page({
         data.userNum = id;
         data.password = pwd1.val;
         data.code = code.val;
+        data.UnionId = UnionId;
+        data.imgCode = imgVal.val;
         wx.request({
           url: app.globalData.url +'wxapp/set/psd',
           method:'POST',
@@ -199,7 +240,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    this.getImgCode()
   },
 
   /**

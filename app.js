@@ -100,6 +100,10 @@ App({
     getId() {
       var id = wx.getStorageSync('userNum');
       return id;
+    },
+    getUnionId(){
+      var id = wx.getStorageSync('logs').openId;
+      return id;
     }
   }
 })
