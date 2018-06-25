@@ -1,6 +1,6 @@
 <view class='list'>
   <view class='list-top'>
-    <image class="header" src="{{ d.headPic?d.headPic:'../../../resources/test/header.jpg'}}"></image>
+    <image class="header" src="{{ d.headPic?d.headPic:'https://moochain-art.oss-cn-beijing.aliyuncs.com/production/U1508461388039897249/i5YYpRCNsS/more_3.png'}}"></image>
     <view class='name-detail' bindtap='tapName'>
       <view class='name-top'>
         <text class='name'>{{d.source}}</text>
@@ -42,10 +42,10 @@
   </view>
   <view class="list-bottom">
     <!-- 进行中'Identify' -->
-    <view class='appraisal identify' wx:if="{{ change.valueDTO.status == 'IDENTIFY'}}">
+    <view class='appraisal identify' wx:if="{{ d.valueDTO.status == 'IDENTIFY'}}">
       <view class='app-con app-left' hidden="{{ isTime }}">
         <view class='app-num'>已有
-          <text> {{change.valueDTO.people}} </text> 人参与</view>
+          <text> {{d.valueDTO.people}} </text> 人参与</view>
         <view class='app-time'>
           <text>{{ days }}</text>天
           <text>{{ hours }}</text>小时
@@ -54,12 +54,14 @@
         </view>
       </view>
       <view class='app-con app-right' hidden="{{ isTime }}">
-        <view class='btn' bindtap="appraisal">估价</view>
-        <block wx:if="{{ change.assess }}">
+        <block wx:if="{{ !d.assess }}">
+          <view class='btn' bindtap="appraisal" data-art-id="{{d.valueDTO.num}}">估价</view>
+        </block>
+        <block wx:else>
           <view class='your-app'>您的估价：
-            <text>2000</text> 元</view>
+            <text>{{d.assess.value}}</text> 元</view>
           <view class='your-bean'>
-            <text>* 20</text> 艺术豆
+            <text>* {{d.scale.value}}</text> 艺术豆
           </view>
         </block>
       </view>
@@ -68,104 +70,36 @@
       </view>
     </view>
     <!-- 估价结果 -->
-    <view class="apprasial-result identifyed" wx:elif="{{change.valueDTO.status == 'IDENTIFYED'}}">
+    <view class="apprasial-result identifyed" wx:elif="{{d.valueDTO.status == 'IDENTIFYED'}}">
       <!-- <view class="fail">
               共 18 人参与估价
               <view class='fail-text'>估价失败</view>
           </view> -->
-      <!-- <view class="your-result">
-                <view class="join-num">
-                  结果：<text class="res-money">2781.48</text> 元 / 18 人参与
-                </view>
-                <view class="your-app">
-                  估价：<text class="your-app-money">2781.48</text> 元 * <text>20</text> 艺术豆
-                </view>
-                <view class="your-reward">
-                  奖励：<text class="reward-bean">32.46</text> 艺术豆
-                </view>
-                <navigator url='../appdetail/appdetail?num={{ d.valueDTO.num }}'>估价详情</navigator>
-          </view>  -->
-      <view class='result'>
+      <view class="your-result" wx:if="{{ d.assess }}">
+        <view class="join-num">
+          结果：
+          <text class="res-money">{{d.valueDTO.value.value}}</text> 元 / {{d.valueDTO.people}} 人参与
+        </view>
+        <view class="your-app">
+          估价：
+          <text class="your-app-money">{{d.assess.value}}</text> 元 *
+          <text>{{d.scale.value}}</text> 艺术豆
+        </view>
+        <view class="your-reward" wx:if="{{ d.award }}">
+          奖励：
+          <text class="reward-bean">{{d.award.value}}</text> 艺术豆
+        </view>
+        <navigator url='../appdetail/appdetail?num={{ d.valueDTO.num }}'>估价详情</navigator>
+      </view>
+      <view class='result' wx:else>
         结果：
-        <text>2781.48</text> 元 / 18 人参与
-        <navigator url='../appdetail/appdetail?num={{ change.valueDTO.num }}'>估价详情</navigator>
+        <text>{{ d.valueDTO.value.value }}</text> 元 / {{d.valueDTO.people}} 人参与
+        <navigator url='../appdetail/appdetail?num={{ d.valueDTO.num }}'>估价详情</navigator>
       </view>
     </view>
     <!--------------- 估价失败---------------- -->
     <view wx:else>
       估价失败
-    </view>
-  </view>
-</view>
-<view class='alert-iframe' catchtouchmove="preventD" hidden="{{ mask }}">
-  <view class='step1' hidden="{{ maskCon }}">
-    <view class='alert-name'>贾大年 -
-      <text>风月无声风月无声</text>
-    </view>
-    <view class='input-con'>
-      <view class="input-title">估价金额</view>
-      <view class="input-num">
-        <input bindinput="bindRMB" type='number' maxlength='9' value="{{ RMB }}" confirm-type="next" />
-        <view>RMB</view>
-      </view>
-      <view class='input-con-prompt'>在估价完成后将根据估价准确程度进行奖励</view>
-    </view>
-    <view class='input-con'>
-      <view class="input-title">多倍投注</view>
-      <view class="input-num">
-        <input bindinput="bindMultiple" maxlength="2" value="{{ multiple }}" type='number' />
-        <view>艺术豆</view>
-      </view>
-      <view class='input-con-prompt'>多倍投注使您的估价拥有更高的权重和回报</view>
-    </view>
-    <view class='btn-con'>
-      <button class='cancel' plain="true" bindtap='cancel'>取消</button>
-      <button class='sure' bindtap='sure'>确认</button>
-    </view>
-  </view>
-  <view class="step2" hidden="{{ !maskCon }}">
-    <view class='alert-name'>贾大年 -
-      <text>风月无声风月无声</text>
-    </view>
-    <view class='alert-list'>
-      <view class='alert-list-con'>
-        估价金额
-        <view>{{ RMB }}
-          <text>RMB</text>
-        </view>
-      </view>
-      <view class='alert-list-con'>
-        艺术豆
-        <view>{{ multiple }}
-          <text>艺术豆</text>
-        </view>
-      </view>
-    </view>
-    <view class='alert-list'>
-      <view class='alert-list-con'>
-        支付艺术豆
-        <view class='green'>{{ multiple }}
-          <text>艺术豆</text>
-        </view>
-      </view>
-      <view class='alert-list-con'>
-        账户余额
-        <view>50
-          <text>艺术豆</text>
-        </view>
-      </view>
-    </view>
-    <view class='pay-pwd'>
-      <view>
-        支付密码
-        <navigator url='../me/password/forgetpay/forgetpay' hover-class='none'>忘记密码？</navigator>
-      </view>
-      <input bindinput="bindPwd" value='{{ pwd }}' />
-    </view>
-    <view class='pay-pwd-prompt'>支付密码至少6个字符</view>
-    <view class='btn-con'>
-      <button class='cancel' plain="true" bindtap='prev'>上一步</button>
-      <button class='sure' bindtap='sub'>确认</button>
     </view>
   </view>
 </view>

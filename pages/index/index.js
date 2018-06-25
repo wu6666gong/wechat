@@ -7,7 +7,8 @@ Page({
     isLoading: true,
     items: [],
     page: 1,
-    getDataType: "push"
+    getDataType: "push",
+    mask:""
   },
   onLoad() {
     var the = this;
@@ -24,6 +25,25 @@ Page({
     })
     wx.onSocketError(function (res) {
       console.log('WebSocket连接打开失败，请检查！')
+    })
+    wx.onSocketMessage(function (res) {
+      let resData = JSON.parse(res.data);
+      let index = resData.data.index;
+      let data = resData.data.art;
+      let items =[];
+      let valueDTO = "items[" + index + "].valueDTO";
+      let award = "items[" + index + "].award";
+      let assess = "items[" + index + "].assess";
+      let scale = "items[" + index + "].scale";
+      let assessData = data.assess ? data.assess:null;
+      let scaleData = data.scale ? data.scale : null;
+      the.setData({
+        [valueDTO]: data.valueDTO,
+        [award]: data.award,
+        [assess]: assessData,
+        [scale]: scaleData,
+      })
+      console.log(the.data.items)
     })
   },
   onShow() {
@@ -152,5 +172,11 @@ Page({
     time.minutes = parseInt(t / 60 % 60, 10);//计算剩余的分钟
     time.seconds = parseInt(t % 60, 10);//计算剩余的秒数
     return time;
+  },
+  //监听弹窗
+  maskeventListener(e){
+    this.setData({
+      artNum:e.detail.artNum
+    })
   }
 })

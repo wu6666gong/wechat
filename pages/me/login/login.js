@@ -183,7 +183,9 @@ Page({
         success(res){
           wx.hideLoading()
           if(res.data.code == 0){
+            console.log(res);
             wx.setStorageSync('userNum', res.data.data.userNum)
+            wx.setStorageSync('bean', res.data.data.money)
             wx.navigateBack({
               delta: 1,
             })

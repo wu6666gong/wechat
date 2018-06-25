@@ -18,19 +18,19 @@
       </view>
       <view class="list {{ isId?'':'no-login-list' }}">
         <navigator class='art' url="{{ isId?'../art/art':'../login/login' }}" hover-class="none">
-            <image mode="aspectFit" src='../../../resources/images/pro-1.png'></image>
+            <image mode="aspectFit" src='https://moochain-art.oss-cn-beijing.aliyuncs.com/production/U1508461388039897249/zriZXC4cKp/more_1.png'></image>
             <view>我的艺术品</view>    
         </navigator>
         <navigator class='app'url="{{ isId?'../appraisal/appraisal':'../login/login' }}" hover-class="none">
-            <image mode="aspectFit" src='../../../resources/images/pro-2.png'></image>
+            <image mode="aspectFit" src='https://moochain-art.oss-cn-beijing.aliyuncs.com/production/U1508461388039897249/DhxG5nKbsn/more_2.png'></image>
             <view>估价记录</view>
         </navigator>
         <navigator class='bean-record' url="{{ isId?'../bean/bean':'../login/login' }}" hover-class="none">
-            <image mode="aspectFit" src='../../../resources/images/pro-3.png'></image>
+            <image mode="aspectFit" src='https://moochain-art.oss-cn-beijing.aliyuncs.com/production/U1508461388039897249/xm2GHTr2MQ/more_3.png'></image>
             <view>艺术豆记录</view>
         </navigator>
         <navigator class='set' url="{{ isId?'../security/security':'../login/login' }}" hover-class="none">
-            <image mode="aspectFit" src='../../../resources/images/pro-4.png'></image>
+            <image mode="aspectFit" src='https://moochain-art.oss-cn-beijing.aliyuncs.com/production/U1508461388039897249/Fw6CK83SzH/more_4.png'></image>
             <view>安全设置</view>
         </navigator>
       </view>

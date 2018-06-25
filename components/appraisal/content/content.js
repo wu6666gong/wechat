@@ -1,167 +1,103 @@
 const app = getApp();
-var initial = {
-  mask: true,
-  maskCon: false,
-  RMB: '',  //估价人民币
-  multiple: "", //估价的倍数
-  pwd: ""
-}
 Component({
   properties: {
     d: {
       type: Object,
       value: "default value"
+    },
+    index:{
+      type: Number,
+      value: "111"
     }
   },
   data: {
     mask: true,
     maskCon: false,
     change: '',
-    RMB: '',  //估价人民币
-    multiple: "", //估价的倍数
     isTime: false, //倒计时是否完成
-    pwd: "",
     days: "",
     hours: "",
     minutes: "",
-    seconds: ""
+    seconds: "",
+    test: "000000"
   },
   methods: {
     tapName: function () {
-      console.log('aaa');
       wx.previewImage({
         current: 'https://moochain-art.oss-cn-beijing.aliyuncs.com/production/admin/PbiwZrwtez/cover.png',
         urls: ["https://moochain-art.oss-cn-beijing.aliyuncs.com/production/admin/PbiwZrwtez/cover.png", "https://moochain-art.oss-cn-beijing.aliyuncs.com/production/admin/QsE2h3rkxB/cover.png"] // 需要预览的图片http链接列表
       })
     },
     //点击估价按钮
-    appraisal() {
+    appraisal(e) {
+      let artNum = e.currentTarget.dataset.artId;
       let the = this;
       let id = app.globalData.getId();
       if (!id) {
         console.log('该登录');
         return false
       }
-      the.setData({
-        mask: false
+      the.triggerEvent('maskevent', {
+        artNum: artNum
       })
-    },
-    //弹窗取消按钮
-    cancel() {
-      this.setData(initial)
-    },
-    //弹窗确认按钮
-    sure() {
-      let data = this.data;
-      if (!data.RMB) {
-        wx.showToast({
-          title: '填写估价金额',
-          icon: 'none'
-        })
-      } else if (!data.multiple) {
-        wx.showToast({
-          title: '填写估价倍数',
-          icon: 'none'
-        })
-      } else {
-        this.setData({
-          maskCon: true
-        });
-      }
-    },
-    //弹窗上一步
-    prev() {
-      this.setData({
-        maskCon: false
-      })
-    },
-    // 绑定金额
-    bindRMB(e) {
-      let val = e.detail.value;
-      this.setData({
-        RMB: val
-      })
-    },
-    //绑定倍数
-    bindMultiple(e) {
-      let val = e.detail.value;
-      this.setData({
-        multiple: val
-      })
-    },
-    //绑定支付密码
-    bindPwd(e) {
-      let val = e.detail.value;
-      this.setData({
-        pwd: val
-      })
-    },
-    //提交估价
-    sub() {
-      let the = this;
-      let data = the.data;
-      if (!data.pwd) {
-        wx.showToast({
-          title: '填写支付密码',
-          icon: 'none'
-        })
-      } else {
-        wx.showLoading({
-          title: "提交中",
-          mask: true,
-          complete() {
-            setTimeout(() => {
-              the.setData(initial);
-              wx.hideLoading();
-            }, 3000)
-          }
-        })
-
-      }
     },
     time(e) {
       let userNum = wx.getStorageSync("userNum");
       let the = this;
       let intervlTime = "";
-      let intervlTime1="";
+      let intervlTime1 = "";
       let artNum = e.valueDTO.num;
       let authStamp = (e.authStamp);
+      let index = the.data.index;
       let now = Math.floor((new Date()).getTime());
-      intervlTime = setInterval(() => {
+      intervlTime = setInterval(function () {
         if (authStamp <= now) {
           clearInterval(intervlTime)
           return false;
         }
-        let  Str = {
+        let Str = {
           userNum: userNum,
-          artNum: artNum
+          artNum: artNum,
+          index:index
         };
         Str = JSON.stringify(Str)
         wx.sendSocketMessage({
-          data: Str
+          data: Str,
+          success() {
+          }
         })
-        wx.onSocketMessage(function (res) {
-          var resData = JSON.parse(res.data);
-          console.log(resData.data.art)
-          the.setData({
-            change: resData.data.art
-          })
-        })
+        the.receiveData(the);
       }, 3000)
       intervlTime1 = setInterval(() => {
         if (authStamp <= now) {
           clearInterval(intervlTime1);
           the.setData({
-            isTime:true
+            isTime: true
           })
           return false;
         }
         the.getTimer(authStamp)
-      },1000)
+      }, 1000)
+    },
+    receiveData(the){
+      // console.log("aaaa");
+      // wx.onSocketMessage(function (res) {
+      //   console.log(the);
+      //   the.triggerEvent('eventCon', {
+      //     index: resData.data.index,
+      //     con: resData.data.art,
+      //   })
+      //   console.log(the)
+      //   console.log(resData.data.art)
+      //   the.setData({
+      //     change: resData.data.art,
+      //     test: "111111111"
+      //   })
+      // })
     },
     // 倒计时时间
     getTimer(authStamp) {
-      authStamp = authStamp/1000;
+      authStamp = authStamp / 1000;
       let the = this;
       let now = Math.floor((new Date()).getTime() / 1000);
       let time = authStamp - now;

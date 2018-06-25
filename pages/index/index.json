@@ -1,6 +1,7 @@
 {
   "usingComponents":{
-    "list-content":"../../components/appraisal/content/content"
+    "list-content":"../../components/appraisal/content/content",
+    "list-layer": "../../components/appraisal/layer/layer"
   },
   "enablePullDownRefresh":true,
   "backgroundTextStyle":"dark",

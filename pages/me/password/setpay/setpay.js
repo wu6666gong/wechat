@@ -1,4 +1,4 @@
-const app = getApp();
+let app = getApp();
 const verify = require("../../../../utils/verify.js")
 let timerName;
 Page({

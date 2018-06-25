@@ -1,0 +1,72 @@
+<view class='alert-iframe' catchtouchmove="preventD" hidden="{{ !artNum }}">
+  <view class='step1' hidden="{{ maskCon }}">
+    <view class='alert-name'>贾大年 -
+      <text>风月无声风月无声</text>
+    </view>
+    <view class='input-con'>
+      <view class="input-title">估价金额</view>
+      <view class="input-num">
+        <input bindinput="bindRMB" type='number' maxlength='9' value="{{ RMB }}" confirm-type="next" />
+        <view>RMB</view>
+      </view>
+      <view class='input-con-prompt'>在估价完成后将根据估价准确程度进行奖励</view>
+    </view>
+    <view class='input-con'>
+      <view class="input-title">多倍投注</view>
+      <view class="input-num">
+        <input bindinput="bindMultiple" maxlength="2" value="{{ multiple }}" type='number' />
+        <view>艺术豆</view>
+      </view>
+      <view class='input-con-prompt'>多倍投注使您的估价拥有更高的权重和回报</view>
+    </view>
+    <view class='btn-con'>
+      <button class='cancel' plain="true" bindtap='cancel'>取消</button>
+      <button class='sure' bindtap='sure'>确认</button>
+    </view>
+  </view>
+  <view class="step2" hidden="{{ !maskCon }}">
+    <view class='alert-name'>贾大年 -
+      <text>风月无声风月无声</text>
+    </view>
+    <view class='alert-list'>
+      <view class='alert-list-con'>
+        估价金额
+        <view>{{ RMB }}
+          <text>RMB</text>
+        </view>
+      </view>
+      <view class='alert-list-con'>
+        艺术豆
+        <view>{{ multiple }}
+          <text>艺术豆</text>
+        </view>
+      </view>
+    </view>
+    <view class='alert-list'>
+      <view class='alert-list-con'>
+        支付艺术豆
+        <view class='green'>{{ multiple }}
+          <text>艺术豆</text>
+        </view>
+      </view>
+      <view class='alert-list-con'>
+        账户余额
+        <view>50
+          <text>艺术豆</text>
+        </view>
+      </view>
+    </view>
+    <view class='pay-pwd'>
+      <view>
+        支付密码
+        <navigator url='../me/password/forgetpay/forgetpay' hover-class='none'>忘记密码？</navigator>
+      </view>
+      <input bindinput="bindPwd" value='{{ pwd }}' password='true' />
+    </view>
+    <view class='pay-pwd-prompt'>支付密码至少6个字符</view>
+    <view class='btn-con'>
+      <button class='cancel' plain="true" bindtap='prev'>上一步</button>
+      <button class='sure' bindtap='sub'>确认</button>
+    </view>
+  </view>
+</view>
