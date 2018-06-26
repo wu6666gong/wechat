@@ -1,6 +1,169 @@
+const app = getApp()
+let  intervalTime2;
 Page({
+  data: {
+    items: [],
+    artNum:"",
+    isCanvas:false,
+    canvas:[]
+  },
+  onLoad(e) {
+    let num = e.num;
+    let index = e.index;
+    let ownerNum = wx.getStorageSync('userNum');
+    this.postData(num, ownerNum)
+    this.socketMessage(index);
+  },
+  //监听弹窗
+  maskeventListener(e) {
+    this.setData({
+      artNum: e.detail.artNum,
+      artData: e.detail.artData
+    })
+  },
+  socketMessage(index){
+    var the = this;
+    wx.onSocketMessage(function (res) {
+      let resData = JSON.parse(res.data);
+      let data = resData.data.art;
+      if (index == resData.data.index){
+        if (!the.data.canvas && resData.data.prices){
+            the.setData({
+              canvas: resData.data.prices
+            })
+            the.canvas()
+        }
+        let valueDTO = "items[" + 0 + "].valueDTO";
+        let award = "items[" + 0 + "].award";
+        let assess = "items[" + 0 + "].assess";
+        let scale = "items[" + 0 + "].scale";
+        let assessData = data.assess ? data.assess : null;
+        let scaleData = data.scale ? data.scale : null;
+        the.setData({
+          [valueDTO]: data.valueDTO,
+          [award]: data.award,
+          [assess]: assessData,
+          [scale]: scaleData,
+        })
+      }
+      
+    })
+  },
+  postData(num, ownerNum) {
+    let the = this;
+    wx.showLoading({
+      title: '加载中',
+    })
+    wx.request({
+      url: app.globalData.url + '/wxapp/ajax/detail',
+      method: 'POST',
+      data: {
+        num: num,
+        ownerNum: ownerNum
+      },
+      success(res) {
+        console.log(res);
+        wx.hideLoading();
+        if (res.data.code == 0) {
+          if (res.data.data.prices){
+            the.setData({
+              canvas: res.data.data.prices
+            })
+            the.canvas()
+          }
+          the.push(res.data.data.art)
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: "none"
+          })
+        }
+      },
+      fail() {
+        wx.hideLoading();
+      }
+    })
+  },
+  push(res){
+    let arr = [];
+    let the = this;
+    res.seconds = 0;
+    res.istime = 1000;
+    arr.push(res)
+    let authStamp = (res.authStamp);
+    let now = Math.floor((new Date()).getTime());
+    the.setData({
+      items: arr
+    })
+    if (authStamp > now) {
+      the.time(res)
+    }
+  },
+  time(e){
+    let the = this;
+    let index = e.index;
+    let authStamp = (e.authStamp);
+    intervalTime2 = setInterval(() => {
+      let now = Math.floor((new Date()).getTime());
+      if (authStamp+1000 <= now) {
+        clearInterval(intervalTime2);
+        return false;
+      }
+      the.getTimer(authStamp,0)
+      console.log(the.data.items)
+    }, 1000)
+  },
+  // 倒计时时间
+  getTimer(authStamp, index) {
+    authStamp = authStamp / 1000;
+    let the = this;
+    let now = Math.floor((new Date()).getTime() / 1000);
+    let time = authStamp - now;
+    let times = the.surplusTime(time);
+    times.days = the.checkTime(times.days);
+    times.hours = the.checkTime(times.hours);
+    times.minutes = the.checkTime(times.minutes);
+    times.seconds = the.checkTime(times.seconds);
+    times.now = now;
+
+    let days = "items[" + index + "].days";
+    let hours = "items[" + index + "].hours";
+    let minutes = "items[" + index + "].minutes";
+    let seconds = "items[" + index + "].seconds";
+    let istime = "items[" + index + "].istime";
+    the.setData({
+      [days]: times.days,
+      [hours]: times.hours,
+      [minutes]: times.minutes,
+      [seconds]: times.seconds,
+      [istime]: time
+    })
+  },
+  //剩余时间
+  surplusTime(t) {
+    var time = {};
+    time.days = parseInt(t / 60 / 60 / 24, 10); //计算剩余的天数
+    time.hours = parseInt(t / 60 / 60 % 24, 10); //计算剩余的小时
+    time.minutes = parseInt(t / 60 % 60, 10);//计算剩余的分钟
+    time.seconds = parseInt(t % 60, 10);//计算剩余的秒数
+    return time;
+  },
+  //将0-9的数字前面加上0，例1变为01
+  checkTime(i) {
+    if (i < 10) {
+      i = "0" + i;
+    }
+    return i;
+  },
+  onUnload(){
+    clearInterval(intervalTime2)
+  },
   onReady() {
-    var arr = [[23, 24], [50, 100], [5, 18], [40, 6]];
+  
+  },
+  canvas(){
+    var the = this;
+    var arr = the.data.canvas;
     var arrLength = arr.length;
     var arr1 = [], arr2 = [];
     for (var i = 0; i < arrLength; i++) {
@@ -9,15 +172,17 @@ Page({
     }
     var xMax = Math.max.apply(Math, arr1);
     var yMax = Math.max.apply(Math, arr2);
+    xMax = Math.ceil(xMax);
+    yMax = Math.ceil(yMax);
     var ctx = wx.createCanvasContext('firstCanvas');
-    var distX = Math.ceil(xMax) / 5;
-    var distY = Math.ceil(yMax) / 5;
+    var distX = (xMax / 5) * Math.pow(10, 6);
+    var distY = (yMax / 5) * Math.pow(10, 6);
     ctx.beginPath();
     //竖轴
     ctx.beginPath();
     ctx.moveTo(20, 250);
     ctx.lineWidth = "2";
-    ctx.font="12px Arial";
+    ctx.font = "12px Arial";
     ctx.fillText('0', 8, 260);
     ctx.fillText('艺术豆', 30, 15);
     ctx.lineTo(20, 10);
@@ -27,8 +192,9 @@ Page({
       ctx.textAlign = "start";
       var y = 250 - 48 * i;
       ctx.moveTo(20, y);
+      var lineNum = (distY * i) / Math.pow(10, 6)
       if (i != 0) {
-        ctx.fillText(distY * i, 0, y + 4);
+        ctx.fillText(lineNum, 0, y + 4);
       }
       ctx.lineTo(25, y);
       ctx.stroke();
@@ -47,8 +213,9 @@ Page({
       var x = 20 + 57 * i;
       ctx.textAlign = "center";
       ctx.moveTo(x, 250);
+      var lineNum = (distX * i) / Math.pow(10, 6);
       if (i != 0) {
-        ctx.fillText(distX * i, x, 264);
+        ctx.fillText(lineNum, x, 264);
       }
       ctx.lineTo(x, 245);
       ctx.stroke();
@@ -74,5 +241,9 @@ Page({
     // context.stroke();
     //描边路径
     ctx.draw();
+    the.setData({
+      isCanvas: true
+    })
   }
+
 })

@@ -6,13 +6,18 @@ let initial = {
   RMB: '',  //估价人民币
   multiple: "", //估价的倍数
   pwd: "",
-  artNum:""
+  artNum:"",
+  restBean:""
 }
 Component({
   properties:{
     artNum:{
       type: String,
       value:'111'
+    },
+    artData:{
+      type:Object,
+      value: '111'
     }
   },
   data:{
@@ -41,9 +46,19 @@ Component({
           icon: 'none'
         })
       } else {
-        this.setData({
-          maskCon: true
-        });
+        let money = wx.getStorageSync("bean");
+        if (data.multiple>money){
+          wx.showToast({
+            title: '您的艺术豆不足',
+            icon: 'none'
+          })
+        }else{
+          this.setData({
+            maskCon: true,
+            restBean: money - data.multiple
+          });
+        }
+       
       }
     },
     //弹窗上一步

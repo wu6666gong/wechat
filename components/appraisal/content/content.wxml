@@ -15,7 +15,7 @@
   <view class='list-middle'>
     <view class='author'>
       {{d.valueDTO.author}}
-      <navigator url='../appdetail/appdetail'>详情</navigator>
+      <navigator wx:hidden='{{ detail }}' url='../appdetail/appdetail?num={{ d.valueDTO.num }}&index={{index}}'>详情</navigator>
     </view>
     <view class='work-detail'>
       {{d.valueDTO.name}}，{{d.artDTO.size}} ，{{d.artDTO.years}}{{d.artDTO.years>0?'年':""}}
@@ -43,19 +43,19 @@
   <view class="list-bottom">
     <!-- 进行中'Identify' -->
     <view class='appraisal identify' wx:if="{{ d.valueDTO.status == 'IDENTIFY'}}">
-      <view class='app-con app-left' hidden="{{ isTime }}">
+      <view class='app-con app-left' hidden="{{ d.istime < 1 }}">
         <view class='app-num'>已有
           <text> {{d.valueDTO.people}} </text> 人参与</view>
         <view class='app-time'>
-          <text>{{ days }}</text>天
-          <text>{{ hours }}</text>小时
-          <text>{{ minutes }}</text>分
-          <text>{{ seconds }}</text>秒
+          <text>{{ d.days }}</text>天
+          <text>{{ d.hours }}</text>小时
+          <text>{{ d.minutes }}</text>分
+          <text>{{ d.seconds }}</text>秒
         </view>
       </view>
-      <view class='app-con app-right' hidden="{{ isTime }}">
+      <view class='app-con app-right' wx:if="{{ d.istime >= 1 }}">
         <block wx:if="{{ !d.assess }}">
-          <view class='btn' bindtap="appraisal" data-art-id="{{d.valueDTO.num}}">估价</view>
+          <view class='btn' bindtap="appraisal" data-art-id="{{d.valueDTO.num}}" data-art-data="{{ d }}">估价</view>
         </block>
         <block wx:else>
           <view class='your-app'>您的估价：
@@ -65,7 +65,7 @@
           </view>
         </block>
       </view>
-      <view hidden="{{ !isTime }}">
+      <view wx:else>
         正在计算中...
       </view>
     </view>
@@ -89,17 +89,22 @@
           奖励：
           <text class="reward-bean">{{d.award.value}}</text> 艺术豆
         </view>
-        <navigator url='../appdetail/appdetail?num={{ d.valueDTO.num }}'>估价详情</navigator>
+        <navigator wx:hidden='{{ detail }}' url='../appdetail/appdetail?num={{ d.valueDTO.num }}&index={{index}}'>估价详情</navigator>
       </view>
       <view class='result' wx:else>
         结果：
         <text>{{ d.valueDTO.value.value }}</text> 元 / {{d.valueDTO.people}} 人参与
-        <navigator url='../appdetail/appdetail?num={{ d.valueDTO.num }}'>估价详情</navigator>
+        <navigator url='../appdetail/appdetail?num={{ d.valueDTO.num }}&index={{index}}'>估价详情</navigator>
       </view>
     </view>
     <!--------------- 估价失败---------------- -->
     <view wx:else>
-      估价失败
+      <view class="apprasial-result identifyed">
+           <view class="fail">
+              共 {{d.valueDTO.people}} 人参与估价
+              <view class='fail-text'>估价失败</view>
+          </view> 
+      </view>
     </view>
   </view>
 </view>

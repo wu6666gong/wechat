@@ -1,7 +1,7 @@
 <view class='alert-iframe' catchtouchmove="preventD" hidden="{{ !artNum }}">
   <view class='step1' hidden="{{ maskCon }}">
-    <view class='alert-name'>贾大年 -
-      <text>风月无声风月无声</text>
+    <view class='alert-name'>{{ artData.valueDTO.author}} -
+      <text>{{ artData.valueDTO.name}}</text>
     </view>
     <view class='input-con'>
       <view class="input-title">估价金额</view>
@@ -25,8 +25,8 @@
     </view>
   </view>
   <view class="step2" hidden="{{ !maskCon }}">
-    <view class='alert-name'>贾大年 -
-      <text>风月无声风月无声</text>
+    <view class='alert-name'>{{  artData.valueDTO.author }} -
+      <text>{{ artData.valueDTO.name }}</text>
     </view>
     <view class='alert-list'>
       <view class='alert-list-con'>
@@ -51,7 +51,7 @@
       </view>
       <view class='alert-list-con'>
         账户余额
-        <view>50
+        <view>{{ restBean }}
           <text>艺术豆</text>
         </view>
       </view>
