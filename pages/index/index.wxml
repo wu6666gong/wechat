@@ -1,8 +1,7 @@
 <!--index.wxml-->
 <view class="container">
-      <list-content wx:for="{{ items }}" d="{{ item }}" wx:key="{{ index }}"  index="{{ index }}" bindmaskevent ="maskeventListener"  route="home"></list-content>
+      <list-content wx:for="{{ items }}" d="{{ item }}" wx:key="{{ index }}"  index="{{ index }}"   route="home"></list-content>
       <view class='loading' hidden="{{ isLoading }}">正在加载...</view>    
 </view>
-<list-layer artNum="{{ artNum }}" artData="{{ artData }}"></list-layer>
 
 

@@ -231,3 +231,18 @@ swiper{
 .list-bottom{
   padding-top:24rpx; 
 }
+/*首页  */
+.index .app-time text{
+  display: inline-block;
+  line-height:72rpx;
+  height: 72rpx;
+  font-size: 34rpx;
+}
+.index .end{
+  color: #666;
+}
+.index-cover image{
+  width:606rpx;
+  height:606rpx;
+  margin: 30rpx 0; 
+}

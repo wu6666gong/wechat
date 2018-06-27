@@ -1,14 +1,14 @@
 <view class='container'>
     <view class='list have-p'>
         <view class='title'>新支付密码</view>
-        <input bindinput='pwd1'></input>
+        <input bindinput='pwd1' password='true'></input>
         <view class='prompt'>
           支付密码不少于6个字符
         </view>
     </view>
      <view class='list'>
         <view class='title'>重复新支付密码</view>
-        <input bindinput='pwd2'></input>
+        <input bindinput='pwd2' password='true'></input>
     </view>
     <button class='btn'  bindtap='sure'  hover-class="none">确认</button>
 </view>

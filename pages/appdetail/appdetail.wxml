@@ -1,8 +1,8 @@
 <view>
-     <list-content wx:for="{{ items }}" d="{{ item }}" wx:key="{{ index }}"  index="{{ index }}" bindmaskevent ="maskeventListener" ></list-content> 
+     <list-content wx:for="{{ items }}" d="{{ item }}" wx:key="{{ index }}" bindmaskevent ="maskeventListener"  bindpreview="eventImage" ></list-content> 
 </view>
 <list-layer artNum="{{ artNum }}" artData="{{ artData }}" detail="{{ true }}"></list-layer>
 <view class='app-table' wx:if="{{ isCanvas }}">
-    <navigator url='../price/price'>估价结果</navigator>
+    <navigator url='../price/price?artNum={{ artPrice }}'>估价结果</navigator>
 </view>
 <canvas canvas-id="firstCanvas" wx:if="{{ isCanvas }}"></canvas>

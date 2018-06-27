@@ -1,4 +1,4 @@
 @import "../public.wxss";
 .btn{
-  margin-top: 440rpx;
+  margin-top: 280rpx;
 }

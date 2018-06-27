@@ -37,3 +37,12 @@
 .t-head .t5,.t-body .t5{
   width: 96rpx;
 }
+.container .NORMAL{
+   background-color: #7AA8AB;
+}
+.container .NORMAL view{
+   color: #fff;
+}
+.container .FROZEN view{
+   color: #999;
+}

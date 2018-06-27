@@ -13,10 +13,6 @@ Component({
     route:{
       type:String,
       value: "other"
-    },
-    detail:{
-      type:Boolean,
-      value:false
     }
   },
   data: {
@@ -31,12 +27,6 @@ Component({
     test: "000000"
   },
   methods: {
-    tapName: function () {
-      wx.previewImage({
-        current: 'https://moochain-art.oss-cn-beijing.aliyuncs.com/production/admin/PbiwZrwtez/cover.png',
-        urls: ["https://moochain-art.oss-cn-beijing.aliyuncs.com/production/admin/PbiwZrwtez/cover.png", "https://moochain-art.oss-cn-beijing.aliyuncs.com/production/admin/QsE2h3rkxB/cover.png"] // 需要预览的图片http链接列表
-      })
-    },
     //点击估价按钮
     appraisal(e) {
       let artNum = e.currentTarget.dataset.artId;
@@ -50,6 +40,19 @@ Component({
       the.triggerEvent('maskevent', {
         artNum: artNum,
         artData: artData
+      })
+    },
+    previewImage(e){
+      let the = this;
+      let url = e.currentTarget.dataset.artUrl
+      the.triggerEvent('preview', {
+        url: url
+      })
+    },
+    goDetail(e){
+      let artNum = e.currentTarget.dataset.artId;
+      wx.navigateTo({
+        url: '../appdetail/appdetail?num=' + artNum
       })
     }
   },

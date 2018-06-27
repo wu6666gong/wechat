@@ -6,11 +6,13 @@
     <view class='t4'>估价</view>
     <view class='t5'>艺术豆</view>
   </view>
-  <view class='t-body'>
-     <view class='t1'>1</view>
-     <view class='t2'>2018-5-19 14:50:32</view>
-     <view class='t3'>15321916178</view>
-     <view class='t4'>800.00</view>
-     <view class='t5'>6</view>
-  </view>
+  <block wx:for="{{ items }}" wx:key="{{ index }}">
+    <view  class='t-body {{ item.status }}'>
+      <view class='t1'>{{ index+1 }}</view>
+      <view class='t2'>{{ item.gmt_create}}</view>
+      <view class='t3'>{{ item.num }}</view>
+      <view class='t4'>{{ item.value.value }}</view>
+      <view class='t5'>{{ item.scale.value }}</view>
+    </view>
+  </block> 
 </view>

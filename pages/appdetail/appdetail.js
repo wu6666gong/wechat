@@ -1,18 +1,22 @@
 const app = getApp()
-let  intervalTime2;
+let intervalTime1, intervalTime2;
 Page({
   data: {
     items: [],
-    artNum:"",
-    isCanvas:false,
-    canvas:[]
+    artNum: "",
+    isCanvas: false,
+    artPrice: "",
+    canvas: [],
+    urls:[]
   },
   onLoad(e) {
+    this.connectSocket()
     let num = e.num;
-    let index = e.index;
     let ownerNum = wx.getStorageSync('userNum');
+    this.setData({
+      artPrice: num
+    })
     this.postData(num, ownerNum)
-    this.socketMessage(index);
   },
   //监听弹窗
   maskeventListener(e) {
@@ -21,32 +25,51 @@ Page({
       artData: e.detail.artData
     })
   },
-  socketMessage(index){
+  eventImage: function (e) {
+    let url = e.url;
+    let urls = this.data.urls;
+    wx.previewImage({
+      current: url,
+      urls: urls// 需要预览的图片http链接列表
+    })
+  },
+  //连接websocket
+  connectSocket() {
+    wx.connectSocket({
+      url: 'ws://10.1.25.34:7070/art/info',
+      method: 'POST'
+    })
+    wx.onSocketOpen(function (res) {
+      console.log('WebSocket连接已打开！')
+
+    })
+  },
+
+  socketMessage(index) {
     var the = this;
     wx.onSocketMessage(function (res) {
       let resData = JSON.parse(res.data);
       let data = resData.data.art;
-      if (index == resData.data.index){
-        if (!the.data.canvas && resData.data.prices){
-            the.setData({
-              canvas: resData.data.prices
-            })
-            the.canvas()
-        }
-        let valueDTO = "items[" + 0 + "].valueDTO";
-        let award = "items[" + 0 + "].award";
-        let assess = "items[" + 0 + "].assess";
-        let scale = "items[" + 0 + "].scale";
-        let assessData = data.assess ? data.assess : null;
-        let scaleData = data.scale ? data.scale : null;
+      if (resData.data.prices) {
         the.setData({
-          [valueDTO]: data.valueDTO,
-          [award]: data.award,
-          [assess]: assessData,
-          [scale]: scaleData,
+          canvas: resData.data.prices
         })
+        the.canvas()
+        clearInterval(intervalTime1)
+        clearInterval(intervalTime2)
       }
-      
+      let valueDTO = "items[" + 0 + "].valueDTO";
+      let award = "items[" + 0 + "].award";
+      let assess = "items[" + 0 + "].assess";
+      let scale = "items[" + 0 + "].scale";
+      let assessData = data.assess ? data.assess : null;
+      let scaleData = data.scale ? data.scale : null;
+      the.setData({
+        [valueDTO]: data.valueDTO,
+        [award]: data.award,
+        [assess]: assessData,
+        [scale]: scaleData,
+      })
     })
   },
   postData(num, ownerNum) {
@@ -55,7 +78,7 @@ Page({
       title: '加载中',
     })
     wx.request({
-      url: app.globalData.url + '/wxapp/ajax/detail',
+      url: app.globalData.url + 'wxapp/ajax/detail',
       method: 'POST',
       data: {
         num: num,
@@ -65,13 +88,13 @@ Page({
         console.log(res);
         wx.hideLoading();
         if (res.data.code == 0) {
-          if (res.data.data.prices){
+          if (res.data.data.prices) {
             the.setData({
               canvas: res.data.data.prices
             })
             the.canvas()
           }
-          the.push(res.data.data.art)
+          the.push(res)
         } else {
           wx.showToast({
             title: res.data.message,
@@ -84,33 +107,54 @@ Page({
       }
     })
   },
-  push(res){
+  push(res) {
+    let data = res;
+    res = res.data.data.art;
     let arr = [];
+    let urls = [];
     let the = this;
-    res.seconds = 0;
     res.istime = 1000;
     arr.push(res)
-    let authStamp = (res.authStamp);
-    let now = Math.floor((new Date()).getTime());
-    the.setData({
-      items: arr
-    })
-    if (authStamp > now) {
-      the.time(res)
+    urls.push(res.artDTO.cover);
+    if (res.artDTO.antiFakes){
+      res.artDTO.antiFakes.forEach((item)=>{
+        urls.push(item);
+      })
     }
+    the.setData({
+      items: arr,
+      urls: urls
+    })
+    if (data.data.data.prices) {
+      return false
+    }
+    the.time(res)
   },
-  time(e){
+  time(e) {
     let the = this;
     let index = e.index;
+    let artNum = e.valueDTO.num;
     let authStamp = (e.authStamp);
+    let userNum = wx.getStorageSync("userNum");
+    intervalTime1 = setInterval(function () {
+      let Str = {
+        userNum: userNum,
+        artNum: artNum
+      };
+      Str = JSON.stringify(Str)
+      wx.sendSocketMessage({
+        data: Str,
+        success() {
+        }
+      })
+    }, 3000)
     intervalTime2 = setInterval(() => {
       let now = Math.floor((new Date()).getTime());
-      if (authStamp+1000 <= now) {
+      if (authStamp + 1000 <= now) {
         clearInterval(intervalTime2);
         return false;
       }
-      the.getTimer(authStamp,0)
-      console.log(the.data.items)
+      the.getTimer(authStamp, 0)
     }, 1000)
   },
   // 倒计时时间
@@ -155,13 +199,14 @@ Page({
     }
     return i;
   },
-  onUnload(){
+  onUnload() {
     clearInterval(intervalTime2)
+    wx.closeSocket()
   },
   onReady() {
-  
+
   },
-  canvas(){
+  canvas() {
     var the = this;
     var arr = the.data.canvas;
     var arrLength = arr.length;

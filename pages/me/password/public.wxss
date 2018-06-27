@@ -46,7 +46,7 @@ button{
   height: 68rpx;
 }
 .have-imgCode image{
-  background-color: #333;
+  background-color: #7AA8AB;
 }
 .btn{
   height: 90rpx;

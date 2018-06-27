@@ -1,6 +1,7 @@
 const app = getApp();
 const verify = require("../../../utils/verify.js");
 let timerName;
+let share = '';
 Page({
 
   /**
@@ -178,7 +179,8 @@ Page({
         data:{
           mobile: tel,
           code: code.val,
-          unionId: UnionId
+          unionId: UnionId,
+          shareNum: share
         },
         success(res){
           wx.hideLoading()
@@ -227,6 +229,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    if (options.userNum){
+      share = options.userNum
+    }
   },
   
   /**

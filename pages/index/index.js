@@ -1,7 +1,7 @@
 //index.js
 //获取应用实例
 const app = getApp()
-var intervalTime1,intervalTime2;
+var intervalTime;
 Page({
   data: {
     isLoading: true,
@@ -12,40 +12,36 @@ Page({
   },
   onLoad() {
     var the = this;
-    the.connectSocket()
-
-    wx.onSocketOpen(function (res) {
-      console.log('WebSocket连接已打开！')
-      the.getTime();
-      // wx.sendSocketMessage({
-      //   data: msg
-      // })
-    })
-    wx.onSocketClose(function (res) {
-      console.log('WebSocket 已关闭！')
-    })
-    wx.onSocketError(function (res) {
-      console.log('WebSocket连接打开失败，请检查！')
-    })
-    wx.onSocketMessage(function (res) {
-      let resData = JSON.parse(res.data);
-      console.log(res.data)
-      let index = resData.data.index;
-      let data = resData.data.art;
-      let items =[];
-      let valueDTO = "items[" + index + "].valueDTO";
-      let award = "items[" + index + "].award";
-      let assess = "items[" + index + "].assess";
-      let scale = "items[" + index + "].scale";
-      let assessData = data.assess ? data.assess:null;
-      let scaleData = data.scale ? data.scale : null;
-      the.setData({
-        [valueDTO]: data.valueDTO,
-        [award]: data.award,
-        [assess]: assessData,
-        [scale]: scaleData,
-      })
-    })
+    the.getTime();
+    // wx.onSocketOpen(function (res) {
+    //   console.log('WebSocket连接已打开！')
+    //   
+    // })
+    // wx.onSocketClose(function (res) {
+    //   console.log('WebSocket 已关闭！');
+    // })
+    // wx.onSocketError(function (res) {
+    //   console.log('WebSocket连接打开失败，请检查！')
+    // })
+    // wx.onSocketMessage(function (res) {
+    //   let resData = JSON.parse(res.data);
+    //   console.log(res.data)
+    //   let index = resData.data.index;
+    //   let data = resData.data.art;
+    //   let items =[];
+    //   let valueDTO = "items[" + index + "].valueDTO";
+    //   let award = "items[" + index + "].award";
+    //   let assess = "items[" + index + "].assess";
+    //   let scale = "items[" + index + "].scale";
+    //   let assessData = data.assess ? data.assess:null;
+    //   let scaleData = data.scale ? data.scale : null;
+    //   the.setData({
+    //     [valueDTO]: data.valueDTO,
+    //     [award]: data.award,
+    //     [assess]: assessData,
+    //     [scale]: scaleData,
+    //   })
+    // })
   },
   onShow() {
     var the = this;
@@ -53,18 +49,14 @@ Page({
   // 下拉动作
   onPullDownRefresh() {
     var the = this;
-    for (var i = 1; i <= intervalTime1 + intervalTime2; i++) {
+    for (var i = 1; i <= intervalTime; i++) {
       clearInterval(i);
     }
-    wx.closeSocket();
-    wx.onSocketClose(function (res) {
-      console.log('已关闭')
-      the.setData({
-        getDataType: "pull",
-        page: 1
-      })
-      the.connectSocket()
+    the.setData({
+      getDataType: "pull",
+      page: 1
     })
+    the.getTime()
   },
   // 上拉动作
   onReachBottom() {
@@ -93,7 +85,6 @@ Page({
         ownerNum: ownerNum
       },
       success(res) {
-        console.log(res);
         if (res.data.code == 0) {
           if (dataType == 'push') {
             the.push(res.data.data.arts)
@@ -124,16 +115,14 @@ Page({
     let arr = the.data.items;
     let arrLength = arr.length;
     let length = res.length;
-   
     if (length == 0) return false
     for (var i = 0; i < length; i++) {
       res[i].time = the.timeSlot(res[i].createStamp)
       res[i].index = arrLength+i;
       res[i].istime = 1000;
+      the.isTime(res[i])
       arr.push(res[i])
-      the.isSocketSend(res[i])
     }
-    console.log(arr)
     the.setData({
       items: arr
     })
@@ -146,9 +135,8 @@ Page({
     for (var i = 0; i < length; i++) {
       res[i].time = the.timeSlot(res[i].createStamp)
       res[i].index = i;
-      res[i].istime = 1000;
+      the.isTime(res[i])
       arr.push(res[i])
-      the.isSocketSend(res[i])
     }
     the.setData({
       items: arr
@@ -176,51 +164,22 @@ Page({
     }
     return timeCon;
   },
-  //监听弹窗
-  maskeventListener(e){
-    this.setData({
-      artNum:e.detail.artNum,
-      artData: e.detail.artData
-    })
-  },
-  //连接websocket
-  connectSocket(){
-    wx.connectSocket({
-      url: 'ws://10.1.25.34:7070/art/info',
-      method: 'POST'
-    })
-  },
-  //是否执行websocket发送
-  isSocketSend(e){
+  // 是否发送请求
+  isTime(e) {
     let the = this;
-    let authStamp = (e.authStamp);
+    let authStamp = e.authStamp;
     let now = Math.floor((new Date()).getTime());
-    the.socketSend(e)
+    if (now < authStamp){
+      the.interval(e)
+    }
   },
-  // websocket发送
-  socketSend(e){
+  // 时间轮序
+  interval(e){
     let the = this;
+    let authStamp = e.authStamp;
     let index = e.index;
-    let artNum = e.valueDTO.num;
-    let userNum = wx.getStorageSync("userNum");
-    let authStamp = (e.authStamp);
-    intervalTime1 = setInterval(function () {
+    intervalTime = setInterval(() => {
       let now = Math.floor((new Date()).getTime());
-      let Str = {
-        userNum: userNum,
-        artNum: artNum,
-        index: index
-      };
-      Str = JSON.stringify(Str)
-      wx.sendSocketMessage({
-        data: Str,
-        success() {
-        }
-      })
-    }, 3000)
-    intervalTime2 = setInterval(() => {
-      let now = Math.floor((new Date()).getTime());
-      console.log(authStamp - now)
       if (authStamp+1000 < now) {
          return false;
       }

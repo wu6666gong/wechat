@@ -15,7 +15,6 @@
   <view class='list-middle'>
     <view class='author'>
       {{d.valueDTO.author}}
-      <navigator wx:hidden='{{ detail }}' url='../appdetail/appdetail?num={{ d.valueDTO.num }}&index={{index}}'>详情</navigator>
     </view>
     <view class='work-detail'>
       {{d.valueDTO.name}}，{{d.artDTO.size}} ，{{d.artDTO.years}}{{d.artDTO.years>0?'年':""}}
@@ -23,24 +22,29 @@
     <view class='author-int'>
       {{d.artDTO.description}}
     </view>
-    <swiper indicator-dots="true" indicator-active-color="#7AA8AB">
-      <block>
-        <swiper-item>
-          <view class='swiper-list'>
-            <image lazy-load="true" mode="aspectFit" src="{{d.artDTO.cover}}" />
-          </view>
-        </swiper-item>
-      </block>
-      <block wx:for="{{ d.antiFakes }}" wx:key="{{index}}">
-        <swiper-item>
-          <view class='swiper-list'>
-            <image lazy-load="true" mode="aspectFit" src="{{ item.photoUrl }}" />
-          </view>
-        </swiper-item>
-      </block>
-    </swiper>
+    <view wx:if="{{ route != 'home'}}">
+      <swiper indicator-dots="true" indicator-active-color="#7AA8AB">
+        <block>
+          <swiper-item>
+            <view class='swiper-list' bindtap='tapName'>
+              <image lazy-load="true" mode="aspectFit" src="{{d.artDTO.cover}}" bindtap="previewImage" data-art-url='{{d.artDTO.cover}}' />
+            </view>
+          </swiper-item>
+        </block>
+        <block wx:for="{{ d.artDTO.antiFakes }}" wx:key="{{index}}">
+          <swiper-item>
+            <view class='swiper-list' bindtap='tapName'>
+              <image lazy-load="true" mode="aspectFit" src="{{ item }}" bindtap="previewImage" data-art-url='{{item}}'/>
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    <view class='index-cover' wx:else>
+      <image src="{{d.artDTO.cover}}"/>
+    </view>
   </view>
-  <view class="list-bottom">
+  <view class="list-bottom" wx:if="{{ route != 'home'}}">
     <!-- 进行中'Identify' -->
     <view class='appraisal identify' wx:if="{{ d.valueDTO.status == 'IDENTIFY'}}">
       <view class='app-con app-left' hidden="{{ d.istime < 1 }}">
@@ -71,10 +75,6 @@
     </view>
     <!-- 估价结果 -->
     <view class="apprasial-result identifyed" wx:elif="{{d.valueDTO.status == 'IDENTIFYED'}}">
-      <!-- <view class="fail">
-              共 18 人参与估价
-              <view class='fail-text'>估价失败</view>
-          </view> -->
       <view class="your-result" wx:if="{{ d.assess }}">
         <view class="join-num">
           结果：
@@ -89,7 +89,6 @@
           奖励：
           <text class="reward-bean">{{d.award.value}}</text> 艺术豆
         </view>
-        <navigator wx:hidden='{{ detail }}' url='../appdetail/appdetail?num={{ d.valueDTO.num }}&index={{index}}'>估价详情</navigator>
       </view>
       <view class='result' wx:else>
         结果：
@@ -100,10 +99,38 @@
     <!--------------- 估价失败---------------- -->
     <view wx:else>
       <view class="apprasial-result identifyed">
-           <view class="fail">
-              共 {{d.valueDTO.people}} 人参与估价
-              <view class='fail-text'>估价失败</view>
-          </view> 
+        <view class="fail">
+          共 {{d.valueDTO.people}} 人参与估价
+          <view class='fail-text'>估价失败</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view wx:else class="list-bottom index">
+    <view class='appraisal identify' wx:if="{{ d.valueDTO.status == 'IDENTIFY'}}">
+      <view class='app-con app-left'>
+        <view class='app-time' wx:if="{{ d.istime >= 1 }}">
+          <text>{{ d.days }}</text>天
+          <text>{{ d.hours }}</text>小时
+          <text>{{ d.minutes }}</text>分
+          <text>{{ d.seconds }}</text>秒
+        </view>
+        <view class='app-time' wx:else>
+          <text class='end'>估价时间结束</text>
+        </view>
+      </view>
+      <view class='app-con app-right'>
+        <view class='btn' bindtap="goDetail" data-art-id="{{d.valueDTO.num}}">查看详情</view>
+      </view>
+    </view>
+    <view class='appraisal identify' wx:if="{{ d.valueDTO.status == 'IDENTIFYED'}}">
+      <view class='app-con app-left'>
+        <view class='app-time'>
+          <text class='end'>估价时间结束</text>
+        </view>
+      </view>
+      <view class='app-con app-right'>
+        <view class='btn' bindtap="goDetail" data-art-id="{{d.valueDTO.num}}">查看详情</view>
       </view>
     </view>
   </view>

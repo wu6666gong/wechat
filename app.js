@@ -53,12 +53,24 @@ App({
       }
     });
   },
-  onShow: function () {
+  onShow: function (e) {
+    // 判断是否是登录页面
+    if (e.path == "pages/me/login/login" && (e.scene == 1007 || e.scene == 1008) && e.query.userNum){
+      this.login();
+    }
   },
   loginError:function(){
     wx.navigateBack({
       delta: 0
     })
+  },
+  login(){
+    let userNum = wx.getStorageSync("userNum");
+    if (userNum){
+      wx.switchTab({
+        url: 'pages/index/index',
+      })
+    }
   },
   globalData: {
     url:"http://10.1.25.34:7070/",

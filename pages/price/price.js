@@ -1,17 +1,52 @@
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    
+    items:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    let artNum = options.artNum;
+    console.log(artNum);
+    if (!artNum){
+      wx.showModal({
+        title: '友情提示',
+        content: '请让分享者分享改艺术品的详情，然后查件价格列表',
+      })
+      return false;
+    }
+    this.requestData(artNum);
+  },
+  requestData(artNum){
+      let the = this;
+      wx.showLoading({
+        title: '加载中...'
+      })
+      wx.request({
+        url: app.globalData.url+'wxapp/ajax/price',
+        method:'POST',
+        data:{
+          artNum: artNum
+        },
+        success(e){
+          wx.hideLoading()
+          if(e.data.code == 0){
+            the.setData({
+              items: e.data.data.userPrices
+            })
+          }
+          console.log(e);
+        },
+        fail(){
+          wx.hideLoading()
+        }
+      })
   },
 
   /**
